@@ -1,0 +1,170 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\views\\shared\\_rowactions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\views\\shared\\_rowactions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\views\\bitacora\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\views\\bitacora\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\helpers\\bitacoravisualhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\helpers\\bitacoravisualhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\helpers\\bitacorahelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\helpers\\bitacorahelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\controllers\\bitacoracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\controllers\\bitacoracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\content\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\content\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\proyectograduacionnomina\\views\\shared\\_layoutlogin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F157C4F3-D4FB-495C-BA16-4A326C36F3A1}|ProyectoGraduacionNomina\\ProyectoGraduacionNomina.csproj|solutionrelative:proyectograduacionnomina\\views\\shared\\_layoutlogin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_RowActions.cshtml",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_RowActions.cshtml",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Views\\Shared\\_RowActions.cshtml",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_RowActions.cshtml",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Views\\Shared\\_RowActions.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAkwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-10T19:27:48.372Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_Sidebar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_Sidebar.cshtml",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Views\\Shared\\_Sidebar.cshtml",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_Sidebar.cshtml",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Views\\Shared\\_Sidebar.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAkwDcAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-11T21:18:12.567Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Site.css",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Content\\Site.css",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Content\\Site.css",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Content\\Site.css",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Content\\Site.css",
+              "ViewState": "AgIAALkBAAAAAAAAAAAkwL8BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-10T19:25:54.402Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-03T20:47:34.775Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_LayoutLogin.cshtml",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_LayoutLogin.cshtml",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Views\\Shared\\_LayoutLogin.cshtml",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Shared\\_LayoutLogin.cshtml",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Views\\Shared\\_LayoutLogin.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-03T20:47:29.909Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Bitacora\\Index.cshtml",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Views\\Bitacora\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Views\\Bitacora\\Index.cshtml",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Views\\Bitacora\\Index.cshtml",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAkwJ8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-05T01:26:38.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BitacoraVisualHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Helpers\\BitacoraVisualHelper.cs",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Helpers\\BitacoraVisualHelper.cs",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Helpers\\BitacoraVisualHelper.cs",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Helpers\\BitacoraVisualHelper.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAiwCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T01:25:15.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BitacoraHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Helpers\\BitacoraHelper.cs",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Helpers\\BitacoraHelper.cs",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Helpers\\BitacoraHelper.cs",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Helpers\\BitacoraHelper.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T01:24:41.639Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BitacoraController.cs",
+              "DocumentMoniker": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Controllers\\BitacoraController.cs",
+              "RelativeDocumentMoniker": "ProyectoGraduacionNomina\\Controllers\\BitacoraController.cs",
+              "ToolTip": "C:\\Users\\Emmanuel\\source\\repos\\ProyectoGraduacionNomina\\ProyectoGraduacionNomina\\Controllers\\BitacoraController.cs",
+              "RelativeToolTip": "ProyectoGraduacionNomina\\Controllers\\BitacoraController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAiwFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T01:23:06.199Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

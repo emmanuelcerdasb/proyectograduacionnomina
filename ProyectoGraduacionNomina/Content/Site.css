@@ -1,0 +1,481 @@
+﻿/* ==========================================================
+   BASE DEL SITIO
+   ========================================================== */
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fbff;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.body-content {
+    margin-top: 15px;
+    padding: 0 15px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+}
+
+/* ==========================================================
+   SIDEBAR
+   ========================================================== */
+
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 0 6px 18px rgba(45, 55, 72, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+/* Cabecera del logo */
+.sidebar-header {
+    text-align: center;
+    padding: 25px 15px 15px 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-logo {
+    width: 130px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Menú de navegación */
+.sidebar .nav {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    border-radius: 10px;
+    padding: 10px 14px;
+    transition: all 0.2s ease;
+}
+
+    .sidebar .nav-link i {
+        font-size: 1.2rem;
+        width: 28px;
+        text-align: center;
+        margin-right: 6px;
+        color: #6c757d;
+    }
+
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active {
+        background-color: #f5f7ff;
+        color: #0d6efd;
+        font-weight: 600;
+    }
+
+        .sidebar .nav-link:hover i,
+        .sidebar .nav-link.active i {
+            color: #0d6efd;
+        }
+
+/* Sección inferior del sidebar */
+.logout-section {
+    border-top: 1px solid #f0f0f0;
+    padding: 20px 15px;
+    text-align: center;
+}
+
+    .logout-section .btn {
+        border-radius: 12px;
+        font-weight: 500;
+        padding: 10px;
+        width: 100%;
+    }
+
+        .logout-section .btn i {
+            font-size: 1.1rem;
+        }
+
+/* ==========================================================
+   BOTÓN HAMBURGUESA
+   ========================================================== */
+
+.btn-toggle-sidebar {
+    display: none;
+    background: #7B61FF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(123, 97, 255, 0.25);
+    transition: all 0.2s ease;
+}
+
+    .btn-toggle-sidebar:hover {
+        background-color: #6949ff;
+        transform: translateY(-2px);
+    }
+
+/* ==========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================== */
+
+#wrapper {
+    display: flex;
+}
+
+.content {
+    margin-left: 260px;
+    flex-grow: 1;
+    background-color: #f8fbff;
+    padding: 30px;
+    transition: margin-left 0.3s ease;
+    min-height: 100vh;
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #6c757d;
+}
+
+/* ==========================================================
+   TABLAS MODERNAS
+   ========================================================== */
+
+.table-card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(45, 55, 72, 0.06);
+    padding: 18px;
+    overflow: hidden;
+}
+
+/* ==========================================================
+   ESTILOS EXCLUSIVOS PARA PERSONA/INDEX
+   ========================================================== */
+
+.table-card-persona {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+    width: calc(100% + 175px) !important;
+}
+
+
+    .table-card .table thead {
+        background-color: #FFF3B0;
+        color: #1f2937;
+    }
+
+    .table-card table th,
+    .table-card table td {
+        vertical-align: middle;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+/* ==========================================================
+   BOTONES PRINCIPALES
+   ========================================================== */
+
+.btn-primary-custom {
+    background-color: #7B61FF;
+    border-color: #7B61FF;
+    color: #fff;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(123, 97, 255, 0.16);
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        border-color: #6949ff;
+        box-shadow: 0 8px 24px rgba(123, 97, 255, 0.22);
+    }
+
+/* ==========================================================
+   BOTONES DE ACCIÓN EN TABLAS
+   ========================================================== */
+
+.row-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 8px rgba(15, 23, 42, 0.06);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+    .icon-btn i {
+        font-size: 1.2rem;
+        color: #1f2937;
+    }
+
+.btn-warning.icon-btn {
+    border-color: #2563EB;
+}
+
+    .btn-warning.icon-btn i {
+        color: #2563EB;
+    }
+
+    .btn-warning.icon-btn:hover {
+        background-color: #2563EB;
+        border-color: #2563EB;
+    }
+
+        .btn-warning.icon-btn:hover i {
+            color: #fff;
+        }
+
+.btn-info.icon-btn {
+    border-color: #16A34A;
+}
+
+    .btn-info.icon-btn i {
+        color: #16A34A;
+    }
+
+    .btn-info.icon-btn:hover {
+        background-color: #16A34A;
+        border-color: #16A34A;
+    }
+
+        .btn-info.icon-btn:hover i {
+            color: #fff;
+        }
+
+.btn-danger.icon-btn {
+    border-color: #DC2626;
+}
+
+    .btn-danger.icon-btn i {
+        color: #DC2626;
+    }
+
+    .btn-danger.icon-btn:hover {
+        background-color: #DC2626;
+        border-color: #DC2626;
+    }
+
+        .btn-danger.icon-btn:hover i {
+            color: #fff;
+        }
+
+.icon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+}
+
+/* ==========================================================
+   FORMULARIOS MODERNOS
+   ========================================================== */
+
+.form-card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(45, 55, 72, 0.06);
+    padding: 28px;
+    max-width: 700px;
+    margin: 0 auto;
+    transition: all 0.2s ease;
+}
+
+.form-header {
+    border-bottom: 2px solid #f3f4f6;
+    margin-bottom: 20px;
+}
+
+    .form-header h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #7B61FF;
+        display: flex;
+        align-items: center;
+    }
+
+.form-body {
+    margin-bottom: 20px;
+}
+
+.modern-input {
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    transition: all 0.15s ease;
+}
+
+    .modern-input:focus {
+        border-color: #7B61FF;
+        box-shadow: 0 0 0 3px rgba(123, 97, 255, 0.15);
+    }
+
+.cancel-btn {
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-weight: 500;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+    .cancel-btn:hover {
+        background-color: #f3f4f6;
+        transform: translateY(-2px);
+    }
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+
+/* ==========================================================
+   RESPONSIVE + ANIMACIÓN SLIDE Y SCROLL EN MÓVILES
+   ========================================================== */
+
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 260px;
+        height: 100vh;
+        background: #ffffff;
+        border-right: 1px solid #eee;
+        box-shadow: 0 6px 18px rgba(45,55,72,0.05);
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: transform 0.35s ease-in-out, left 0.35s ease-in-out;
+        transform: translateX(-100%);
+        z-index: 1000;
+        padding-bottom: 80px; /* espacio para el botón de cerrar sesión */
+        -webkit-overflow-scrolling: touch; /* mejora el scroll en iOS */
+    }
+
+        .sidebar.active {
+            transform: translateX(0);
+            left: 0;
+        }
+
+    .content {
+        margin-left: 0 !important;
+        transition: filter 0.3s ease;
+    }
+
+    /* sombreado del fondo cuando el sidebar está activo */
+    body.sidebar-open .content {
+        filter: brightness(0.85);
+    }
+
+    .btn-toggle-sidebar {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background-color: #7B61FF;
+        color: #fff;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        z-index: 1100;
+        cursor: pointer;
+        box-shadow: 0 3px 8px rgba(123,97,255,0.25);
+        transition: all 0.25s ease;
+    }
+
+        .btn-toggle-sidebar:hover {
+            background-color: #6949ff;
+            transform: translateY(-2px);
+        }
+
+    /* scroll visible dentro del menú */
+    .sidebar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,0.15);
+        border-radius: 4px;
+    }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0,0,0,0.3);
+        }
+}
+
+/* ==========================================================
+   DESKTOP
+   ========================================================== */
+@media (min-width: 993px) {
+    .sidebar {
+        transform: none !important;
+        left: 0 !important;
+        overflow-y: auto;
+    }
+
+    .btn-toggle-sidebar {
+        display: none !important;
+    }
+
+    .content {
+        margin-left: 260px;
+        transition: margin-left 0.3s ease;
+    }
+}
+
+.table-responsive-custom {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+
+

@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Consultas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3 class="mb-0">Consultas</h3>
+            <small class="text-muted">Accesos rápidos a los módulos de consulta</small>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <!-- Empleados -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Empleados")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EEF2FF">
+                        <i class="bi bi-person-lines-fill" style="font-size:1.4rem; color:#4F46E5"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Empleados</h5>
+                        <small class="text-muted">Consultar información de colaboradores</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Horarios -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Horarios")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#ECFDF5">
+                        <i class="bi bi-calendar2-week" style="font-size:1.4rem; color:#16A34A"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Horarios</h5>
+                        <small class="text-muted">Ver y filtrar horarios registrados</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Asistencia -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Asistencia")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#FEF3F2">
+                        <i class="bi bi-clipboard-check" style="font-size:1.4rem; color:#DC2626"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Asistencia</h5>
+                        <small class="text-muted">Consultar registros de asistencia</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Nóminas -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Nominas")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#FFF7ED">
+                        <i class="bi bi-cash-coin" style="font-size:1.4rem; color:#EA580C"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Nóminas</h5>
+                        <small class="text-muted">Revisar detalles de pago</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Deducciones -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Deducciones")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#FAF5FF">
+                        <i class="bi bi-dash-circle" style="font-size:1.4rem; color:#7E22CE"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Deducciones</h5>
+                        <small class="text-muted">Consultar descuentos aplicados</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vacaciones -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Vacaciones")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EFF6FF">
+                        <i class="bi bi-sun" style="font-size:1.4rem; color:#2563EB"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Vacaciones</h5>
+                        <small class="text-muted">Visualizar periodos de descanso</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","RegistroMarcacion")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EFF6FF">
+                        <i class="bi bi-fingerprint" style="font-size:1.4rem; color:#2563EB"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Registro Marcación</h5>
+                        <small class="text-muted">Visualizar registro de marcación (Entradas/Salidas)</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,118 @@
+﻿@* ================= SIDEBAR PRINCIPAL ================= *@
+@{
+    bool isAuth = User.Identity.IsAuthenticated;
+    bool isAdmin = User.IsInRole("Administrador");
+    bool isJefe = User.IsInRole("Jefa") || User.IsInRole("Jefe");
+    bool isColaborador = User.IsInRole("Colaborador");
+}
+
+@if (isAuth)
+{
+    <div class="sidebar">
+
+        <!-- ================= CABECERA ================= -->
+        <div class="sidebar-header">
+            <img src="~/Content/logo-araweb-negro.png" alt="Logo" class="sidebar-logo" />
+            <div>
+                <strong>AraWeb</strong>
+                <small class="d-block text-muted">Sistema Nómina</small>
+            </div>
+        </div>
+
+        <!-- ================= NAVEGACIÓN ================= -->
+        <nav class="nav flex-column">
+
+            <a class="nav-link" href="@Url.Action("Index", "Home")">
+                <i class="bi bi-house-door"></i> Inicio
+            </a>
+
+            <hr />
+
+            <!-- ================= MÓDULOS GENERALES ================= -->
+            <div class="small text-muted px-3 mb-1">GENERAL</div>
+
+            <a class="nav-link" href="@Url.Action("Marcar", "Marcacion")">
+                <i class="bi bi-fingerprint"></i> Marcar Entrada / Salida
+            </a>
+
+            <a class="nav-link" href="@Url.Action("Index", "HorasExtra")">
+                <i class="bi bi-alarm"></i> Horas Extras
+            </a>
+
+            <a class="nav-link" href="@Url.Action("Index", "Permiso")">
+                <i class="bi bi-person-check"></i> Permisos
+            </a>
+
+            <a class="nav-link" href="@Url.Action("Index", "Incapacidad")">
+                <i class="bi bi-hospital"></i> Incapacidades
+            </a>
+
+            <!-- ================= ADMINISTRACIÓN ================= -->
+            @if (isAdmin || isJefe)
+            {
+                <hr />
+                <div class="small text-muted px-3 mb-1">GESTIÓN</div>
+
+                <a class="nav-link" href="@Url.Action("CalcularNomina", "Nomina")">
+                    <i class="bi bi-cash-stack"></i> Nóminas
+                </a>
+
+                <a class="nav-link" href="@Url.Action("Index", "Asistencia")">
+                    <i class="bi bi-clock-history"></i> Asistencia
+                </a>
+            }
+
+            <!-- ================= RRHH ================= -->
+            @if (isAdmin)
+            {
+                <hr />
+                <div class="small text-muted px-3 mb-1">RRHH</div>
+
+                <a class="nav-link" href="@Url.Action("Index", "Vacaciones")">
+                    <i class="bi bi-sun"></i> Vacaciones
+                </a>
+
+                <a class="nav-link" href="@Url.Action("Index", "Aguinaldo")">
+                    <i class="bi bi-gift"></i> Aguinaldo
+                </a>
+
+                <a class="nav-link" href="@Url.Action("Index", "Liquidacion")">
+                    <i class="bi bi-person-x"></i> Liquidaciones
+                </a>
+            }
+
+            <!-- ================= TRANSVERSALES ================= -->
+            @if (isAdmin)
+            {
+                <hr />
+                <div class="small text-muted px-3 mb-1">SISTEMA</div>
+
+                <a class="nav-link" href="@Url.Action("Index", "Mantenimiento")">
+                    <i class="bi bi-tools"></i> Mantenimientos
+                </a>
+
+                <a class="nav-link" href="@Url.Action("Index", "Seguridad")">
+                    <i class="bi bi-shield-lock"></i> Seguridad
+                </a>
+
+                <a class="nav-link" href="@Url.Action("Index", "Consulta")">
+                    <i class="bi bi-search"></i> Consultas
+                </a>
+
+                <a class="nav-link" href="@Url.Action("Index", "Reportes")">
+                    <i class="bi bi-clipboard-data"></i> Reportes
+                </a>
+            }
+
+        </nav>
+
+        <!-- ================= LOGOUT ================= -->
+        <div class="logout-section mt-auto">
+            <a class="btn btn-outline-danger w-100"
+               href="@Url.Action("Logout", "Account")">
+                <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+            </a>
+        </div>
+
+    </div>
+}

@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Reporte de Asistencia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="table-card">
+        <div class="card-header">
+            <h3 class="mb-2">Reporte de asistencia</h3>
+            <small class="text-muted">Consulta detallada por empleado</small>
+        </div>
+
+        <div class="p-3">
+            <form method="post" action="@Url.Action("ReporteEmpleado","Asistencia")">
+
+                <div class="row g-3">
+
+                    <!-- EMPLEADO -->
+                    <div class="col-md-4">
+                        <label class="form-label">Empleado</label>
+                        @Html.DropDownList(
+                        "empleadoId",
+                        ViewBag.empleadoId as IEnumerable<SelectListItem>,
+                        "-- Seleccione un empleado --",
+                        new { @class = "form-select", required = "required" }
+                    )
+
+                    </div>
+
+
+                    <!-- FECHA INICIO -->
+                    <div class="col-md-4">
+                        <label class="form-label">Fecha inicio</label>
+                        <input type="date"
+                               name="inicio"
+                               class="form-control"
+                               max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                               required />
+                    </div>
+
+                    <!-- FECHA FIN -->
+                    <div class="col-md-4">
+                        <label class="form-label">Fecha fin</label>
+                        <input type="date"
+                               name="fin"
+                               class="form-control"
+                               max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                               required />
+                    </div>
+
+                </div>
+
+                
+                <div class="form-footer">
+                   <a href="@Url.Action("Index", "Reportes")" class="btn btn-light cancel-btn">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Volver
+                   </a>
+
+                   <button type="submit" class="btn btn-primary-custom">
+                        <i class="bi bi-search me-1"></i> Generar
+                   </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

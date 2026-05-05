@@ -1,0 +1,61 @@
+﻿@model ProyectoGraduacionNomina.Persona
+
+@{
+    ViewBag.Title = "Eliminar Persona";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-card mt-4">
+    <div class="form-header">
+        <h2 class="text-danger"><i class="bi bi-trash me-2"></i>Eliminar Persona</h2>
+    </div>
+
+    <div class="form-body">
+        <p class="text-danger">¿Está seguro que desea eliminar a <strong>@Model.nombre @Model.apellido1 @Model.apellido2</strong>?</p>
+
+        <dl class="row">
+            <dt class="col-sm-3">Cédula</dt>
+            <dd class="col-sm-9">@Model.cedula</dd>
+
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.nombre</dd>
+
+            <dt class="col-sm-3">Primer Apellido</dt>
+            <dd class="col-sm-9">@Model.apellido1</dd>
+
+            <dt class="col-sm-3">Segundo Apellido</dt>
+            <dd class="col-sm-9">@Model.apellido2</dd>
+
+            <dt class="col-sm-3">Correo</dt>
+            <dd class="col-sm-9">@Model.correo</dd>
+
+            <dt class="col-sm-3">Teléfono</dt>
+            <dd class="col-sm-9">@Model.telefono</dd>
+
+            <dt class="col-sm-3">Provincia</dt>
+            <dd class="col-sm-9">@Model.Direccion.Distrito.Canton.Provincia.nombre</dd>
+
+            <dt class="col-sm-3">Cantón</dt>
+            <dd class="col-sm-9">@Model.Direccion.Distrito.Canton.nombre</dd>
+
+            <dt class="col-sm-3">Distrito</dt>
+            <dd class="col-sm-9">@Model.Direccion.Distrito.nombre</dd>
+
+            <dt class="col-sm-3">Dirección</dt>
+            <dd class="col-sm-9">@Model.Direccion.detalle</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash-fill me-1"></i> Eliminar
+            </button>
+        </div>
+    }
+</div>

@@ -1,0 +1,89 @@
+﻿@model ProyectoGraduacionNomina.Puesto
+@{
+    ViewBag.Title = "Crear Puesto";
+}
+
+<div class="form-card">
+    <div class="form-header">
+        <h2><i class="bi bi-briefcase-fill me-2"></i>Crear Puesto</h2>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+<div class="form-body">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.nombre,"Nombre", htmlAttributes: new { @class = "form-label fw-semibold" })
+        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control modern-input" } })
+        @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-check mb-3">
+        @Html.CheckBoxFor(model => model.planilla, new { @class = "form-check-input" })
+        @Html.LabelFor(model => model.planilla,"Planilla", htmlAttributes: new { @class = "form-check-label fw-semibold ms-1" })
+        @Html.ValidationMessageFor(model => model.planilla, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.salario_base,"Salario Base", htmlAttributes: new { @class = "form-label fw-semibold" })
+        @Html.EditorFor(model => model.salario_base, new { htmlAttributes = new { @class = "form-control modern-input", type = "number", step = "0.01" } })
+        @Html.ValidationMessageFor(model => model.salario_base, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.salario_por_hora,"Salario x Hora", htmlAttributes: new { @class = "form-label fw-semibold" })
+        @Html.EditorFor(model => model.salario_por_hora, new { htmlAttributes = new { @class = "form-control modern-input", type = "number", step = "0.0001" } })
+        @Html.ValidationMessageFor(model => model.salario_por_hora, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.estado,"Estado", htmlAttributes: new { @class = "form-label fw-semibold" })
+        @Html.DropDownListFor(model => model.estado,
+            new SelectList(new[]
+            {
+                new { Value = "Activo", Text = "Activo" },
+                new { Value = "Desactivo", Text = "Desactivo" }
+            }, "Value", "Text"),
+            "-- Seleccione un Estado --",
+            new { @class = "form-select modern-input" })
+        @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+    </div>
+
+    @*
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(model => model.fecha_inicio, htmlAttributes: new { @class = "form-label fw-semibold" })
+                @Html.EditorFor(model => model.fecha_inicio, new { htmlAttributes = new { @class = "form-control modern-input", type = "date" } })
+                @Html.ValidationMessageFor(model => model.fecha_inicio, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(model => model.fecha_fin, htmlAttributes: new { @class = "form-label fw-semibold" })
+                @Html.EditorFor(model => model.fecha_fin, new { htmlAttributes = new { @class = "form-control modern-input", type = "date" } })
+                @Html.ValidationMessageFor(model => model.fecha_fin, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.Departamento_idDepartamento, "Departamento", htmlAttributes: new { @class = "form-label fw-semibold" })
+        @Html.DropDownList("Departamento_idDepartamento", null, "-- Seleccione un Departamento --", new { @class = "form-select modern-input" })
+        @Html.ValidationMessageFor(model => model.Departamento_idDepartamento, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+        <div class="form-footer d-flex justify-content-between align-items-center">
+            <a href="@Url.Action("Index")" class="btn btn-light cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Volver
+            </a>
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-save2 me-1"></i> Crear
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

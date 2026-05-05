@@ -1,0 +1,309 @@
+﻿@model ProyectoGraduacionNomina.Persona
+
+@{
+    ViewBag.Title = "Crear Persona";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-card mt-4">
+    <div class="form-header">
+        <h2><i class="bi bi-people me-2"></i>Crear Persona</h2>
+    </div>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "createForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+            <div class="row g-3">
+
+                <!-- NOMBRE -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.nombre, "Nombre", new { @class = "form-label fw-semibold" })
+                    @Html.EditorFor(m => m.nombre, new { htmlAttributes = new { @class = "form-control modern-input", placeholder = "Ej. Rachel" } })
+                    @Html.ValidationMessageFor(m => m.nombre, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- APELLIDO 1 -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.apellido1, "Primer Apellido", new { @class = "form-label fw-semibold" })
+                    @Html.EditorFor(m => m.apellido1, new { htmlAttributes = new { @class = "form-control modern-input", placeholder = "Ej. Pérez" } })
+                    @Html.ValidationMessageFor(m => m.apellido1, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- APELLIDO 2 -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.apellido2, "Segundo Apellido", new { @class = "form-label fw-semibold" })
+                    @Html.EditorFor(m => m.apellido2, new { htmlAttributes = new { @class = "form-control modern-input", placeholder = "Ej. Camacho" } })
+                    @Html.ValidationMessageFor(m => m.apellido2, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- TIPO DE CÉDULA -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Cedula_idCedula, "Tipo de Cédula", new { @class = "form-label fw-semibold" })
+                    @Html.DropDownList("Cedula_idCedula", null, "Seleccione un tipo", new { @class = "form-select modern-input", id = "tipoCedula" })
+                    @Html.ValidationMessageFor(m => m.Cedula_idCedula, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- CÉDULA -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.cedula, "Cédula", new { @class = "form-label fw-semibold" })
+                    @Html.TextBoxFor(m => m.cedula, new
+                    {
+                        @class = "form-control modern-input",
+                        id = "cedula",
+                        placeholder = "Seleccione tipo de cédula",
+                        @readonly = "readonly"
+                    })
+                    @Html.ValidationMessageFor(m => m.cedula, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- TELÉFONO -->
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.telefono, "Teléfono", new { @class = "form-label fw-semibold" })
+                    @Html.EditorFor(m => m.telefono, new { htmlAttributes = new { @class = "form-control modern-input", placeholder = "Ej. 88888888" } })
+                    @Html.ValidationMessageFor(m => m.telefono, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- CORREO -->
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.correo, "Correo Electrónico", new { @class = "form-label fw-semibold" })
+                    @Html.EditorFor(m => m.correo, new { htmlAttributes = new { @class = "form-control modern-input", placeholder = "correo@ejemplo.com" } })
+                    @Html.ValidationMessageFor(m => m.correo, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- FECHA NACIMIENTO -->
+                <div class="col-md-3">
+                    @Html.LabelFor(m => m.fecha_nacimiento, "Fecha Nacimiento", new { @class = "form-label fw-semibold" })
+                    @Html.TextBoxFor(m => m.fecha_nacimiento, new
+                    {
+                        @class = "form-control modern-input",
+                        type = "date",
+                        id = "fechaNacimiento"
+                    })
+                    @Html.ValidationMessageFor(m => m.fecha_nacimiento, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- FECHA CREACIÓN -->
+                <div class="col-md-3">
+                    @Html.LabelFor(m => m.fecha_creacion, "Fecha de creación", new { @class = "form-label fw-semibold" })
+                    @Html.TextBoxFor(m => m.fecha_creacion, "{0:yyyy-MM-dd}", new { @class = "form-control modern-input", @readonly = "readonly", type = "date" })
+                    @Html.ValidationMessageFor(m => m.fecha_creacion, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- PROVINCIA -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Provincia</label>
+                    @Html.DropDownList("Provincia_id",
+                        (SelectList)ViewBag.Provincia_id,
+                        "Seleccione una provincia",
+                        new { @class = "form-select modern-input", id = "ProvinciaSelect" })
+                </div>
+
+                <!-- CANTÓN -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Cantón</label>
+                    @Html.DropDownList("Canton_id",
+                        (SelectList)ViewBag.Canton_id,
+                        "Seleccione un cantón",
+                        new { @class = "form-select modern-input", id = "CantonSelect", disabled = "disabled" })
+                </div>
+
+                <!-- DISTRITO -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Distrito</label>
+                    @Html.DropDownList("Distrito_id",
+                        (SelectList)ViewBag.Distrito_id,
+                        "Seleccione un distrito",
+                        new { @class = "form-select modern-input", id = "DistritoSelect", disabled = "disabled" })
+                </div>
+
+                <!-- DETALLE DIRECCIÓN -->
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Detalle de Dirección</label>
+                    <input type="text" name="DetalleDireccion" id="DetalleDireccion"
+                           class="form-control modern-input"
+                           placeholder="Ej. 200 metros sur del parque..."
+                           disabled />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Volver
+            </a>
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-save2 me-1"></i> Guardar
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        // ==========================================================
+        // 16 AÑOS MÍNIMO
+        // ==========================================================
+        $(document).ready(function () {
+
+            const inputNacimiento = $("#fechaNacimiento");
+            let hoy = new Date();
+            let limiteMax = new Date(hoy.getFullYear() - 16, hoy.getMonth(), hoy.getDate());
+            let limiteMin = new Date(1900, 0, 1);
+
+            inputNacimiento.attr("max", limiteMax.toISOString().split("T")[0]);
+            inputNacimiento.attr("min", limiteMin.toISOString().split("T")[0]);
+
+            inputNacimiento.on("change", function () {
+                let val = new Date($(this).val());
+                if (val > limiteMax) {
+                    showToast("La persona debe tener al menos 16 años.");
+                    $(this).val("");
+                }
+            });
+        });
+
+        // ==========================================================
+        // VALIDACIÓN CLIENT-SIDE
+        // ==========================================================
+        $('#createForm').on('submit', function (e) {
+
+            let errores = [];
+
+            if (!$('#ProvinciaSelect').val())
+                errores.push("Seleccione una provincia.");
+
+            if (!$('#CantonSelect').val())
+                errores.push("Seleccione un cantón.");
+
+            if (!$('#DistritoSelect').val())
+                errores.push("Seleccione un distrito.");
+
+            if (!$('#DetalleDireccion').val().trim())
+                errores.push("Escriba el detalle de la dirección.");
+
+            if (errores.length > 0) {
+                e.preventDefault();
+                showToast(errores.join(" "));
+                return false;
+            }
+
+            return true;
+        });
+
+        // ==========================================================
+        // Cargar cantones
+        // ==========================================================
+        $("#ProvinciaSelect").change(function () {
+            var provinciaId = $(this).val();
+
+            $("#CantonSelect").empty().prop("disabled", true);
+            $("#DistritoSelect").empty().prop("disabled", true);
+            $("#DetalleDireccion").prop("disabled", true).val("");
+
+            if (!provinciaId) return;
+
+            $.getJSON('@Url.Action("GetCantones", "Persona")',
+                { idProvincia: provinciaId },
+                function (data) {
+
+                    $("#CantonSelect").append('<option value="">Seleccione un cantón</option>');
+                    $.each(data, function (i, c) {
+                        $("#CantonSelect").append('<option value="' + c.idCanton + '">' + c.nombre + '</option>');
+                    });
+
+                    $("#CantonSelect").prop("disabled", false);
+                });
+        });
+
+        // ==========================================================
+        // Cargar distritos
+        // ==========================================================
+        $("#CantonSelect").change(function () {
+
+            var cantonId = $(this).val();
+
+            $("#DistritoSelect").empty().prop("disabled", true);
+            $("#DetalleDireccion").prop("disabled", true).val("");
+
+            if (!cantonId) return;
+
+            $.getJSON('@Url.Action("GetDistritos", "Persona")',
+                { idCanton: cantonId },
+                function (data) {
+
+                    $("#DistritoSelect").append('<option value="">Seleccione un distrito</option>');
+                    $.each(data, function (i, d) {
+                        $("#DistritoSelect").append('<option value="' + d.idDistrito + '">' + d.nombre + '</option>');
+                    });
+
+                    $("#DistritoSelect").prop("disabled", false);
+                });
+        });
+
+        // ==========================================================
+        // Habilitar detalle dirección
+        // ==========================================================
+        $("#DistritoSelect").change(function () {
+            if ($(this).val())
+                $("#DetalleDireccion").prop("disabled", false);
+            else
+                $("#DetalleDireccion").prop("disabled", true).val("");
+        });
+
+        // ==========================================================
+        // VALIDACIÓN CÉDULA DINÁMICA
+        // ==========================================================
+        function configurarValidacionCedula() {
+
+            let tipo = $("#tipoCedula option:selected").text().trim();
+            let input = $("#cedula");
+
+            input.val("");
+            input.off("input"); // ← evita duplicar eventos
+
+            if (tipo === "" || tipo === "Seleccione un tipo") {
+                input.prop("readonly", true);
+                input.attr("placeholder", "Seleccione tipo de cédula");
+                return;
+            }
+
+            input.prop("readonly", false);
+
+            switch (tipo) {
+
+                case "Nacional":
+                    input.attr("maxlength", 9);
+                    input.on("input", function () {
+                        this.value = this.value.replace(/[^0-9]/g, "");
+                    });
+                    break;
+
+                case "Residente":
+                    input.attr("maxlength", 12);
+                    input.on("input", function () {
+                        this.value = this.value.replace(/[^0-9]/g, "");
+                    });
+                    break;
+
+                case "Pasaporte":
+                    input.attr("maxlength", 15);
+                    input.on("input", function () {
+                        this.value = this.value.replace(/[^A-Za-z0-9]/g, "");
+                    });
+                    break;
+            }
+        }
+
+        $("#tipoCedula").change(configurarValidacionCedula);
+        $(document).ready(configurarValidacionCedula);
+
+    </script>
+}

@@ -1,0 +1,106 @@
+﻿@model ProyectoGraduacionNomina.RegistroMarcacion
+
+@{
+    ViewBag.Title = "Editar Marcación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-card mt-4" style="max-width:700px;">
+    <div class="form-header">
+        <h2><i class="bi bi-pencil-square me-2"></i>Editar Marcación</h2>
+    </div>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "editMarcForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.idRegistroMarcacion)
+
+        <div class="form-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-2" })
+
+            <div class="row g-3">
+                <!-- Empleado -->
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Empleado</label>
+
+                    <input type="text"
+                           class="form-control modern-input"
+                           value="@($"{Model.Empleado.Persona.nombre} {Model.Empleado.Persona.apellido1} {Model.Empleado.Persona.apellido2}   |   Cédula:   {Model.Empleado.Persona.cedula}")"
+                           disabled />
+
+                    <!-- Campo real que se envía -->
+                    @Html.HiddenFor(m => m.Empleado_idEmpleado)
+                </div>
+
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Fecha</label>
+                    <input type="date" name="fecha" class="form-control modern-input" id="fecha" value="@(Model.fecha.ToString("yyyy-MM-dd"))" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Hora</label>
+                    <input type="time" name="hora" class="form-control modern-input" id="hora" value="@(Model.hora.ToString())" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Tipo</label>
+                    @Html.DropDownListFor(m => m.tipo, new SelectList(new[] { new { Value = "Entrada", Text = "Entrada" }, new { Value = "Salida", Text = "Salida" } }, "Value", "Text", Model.tipo), "-- Seleccione --", new { @class = "form-control modern-input", id = "tipo" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Origen</label>
+                    @Html.DropDownListFor(m => m.origen, new SelectList(new[] { "Colaborador", "Manual (Administrador)", "Sistema (Futuras automatizaciones)" }, Model.origen), "-- Seleccione --", new { @class = "form-control modern-input", id = "origen" })
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Observación (opcional)</label>
+                    @Html.TextAreaFor(m => m.observacion, 3, 120, new { @class = "form-control modern-input" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-save me-1"></i> Guardar Cambios
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#editMarcForm').on('submit', function (e) {
+
+            var empleado = $('input[name="Empleado_idEmpleado"]').val();
+            var fecha = $('#fecha').val();
+            var hora = $('#hora').val();
+            var tipo = $('#tipo').val();
+            var errores = [];
+
+            // Empleado (el Hidden)
+            if (!empleado || empleado === "0") {
+                errores.push("Seleccione un empleado.");
+            }
+
+            if (!fecha) errores.push("Seleccione la fecha.");
+            if (!hora) errores.push("Seleccione la hora.");
+            if (!tipo) errores.push("Seleccione tipo Entrada/Salida.");
+
+            if (errores.length > 0) {
+                e.preventDefault();
+                showToast(errores.join(' '));
+                return false;
+            }
+
+            return true;
+        });
+    </script>
+}
+
+}

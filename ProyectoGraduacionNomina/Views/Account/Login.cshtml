@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Iniciar sesión";
+}
+
+<div class="form-card" style="max-width:520px;margin:0 auto;">
+    <div class="form-header">
+        <h2><i class="bi bi-shield-lock me-2"></i>Iniciar sesión</h2>
+    </div>
+
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-body">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Usuario</label>
+                <input type="text" name="usuario" id="usuario"
+                       class="form-control modern-input"
+                       placeholder="usuario" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Contraseña</label>
+                <input type="password" name="contrasena" id="contrasena"
+                       class="form-control modern-input"
+                       placeholder="Contraseña" />
+            </div>
+
+            <div class="mb-3 text-muted small">
+                <em>Usa las credenciales que están en la tabla <strong>Credencial</strong>.</em>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="form-footer d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary-custom">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            var u = document.getElementById("usuario").value.trim();
+            var p = document.getElementById("contrasena").value.trim();
+            var errores = [];
+
+            if (!u) errores.push("Usuario requerido.");
+            if (!p) errores.push("Contraseña requerida.");
+
+            if (errores.length > 0) {
+                e.preventDefault();
+                showToast(errores.join(" "));
+                return false;
+            }
+            return true;
+        });
+    </script>
+}

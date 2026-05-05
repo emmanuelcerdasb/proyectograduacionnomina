@@ -1,0 +1,64 @@
+﻿@model ProyectoGraduacionNomina.HorarioSemanal
+
+@{
+    ViewBag.Title = "Eliminar Horario Semanal";
+}
+
+<div class="form-card delete-card">
+    <div class="form-header text-danger">
+        <h2 class="text-danger">
+            <i class="bi bi-trash me-2"></i>Eliminar Horario Semanal
+        </h2>
+
+        <small class="text-muted">
+            Jornada: <strong>@(Model.Jornada?.nombre ?? "No asignada")</strong>
+        </small>
+    </div>
+
+    <div class="form-body">
+        <p class="text-danger">
+            ¿Está seguro de eliminar el horario semanal
+            <strong>@Model.nombre</strong>?
+        </p>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-secondary">Nombre</label>
+            <div class="form-control modern-input readonly-field">
+                @Html.DisplayFor(m => m.nombre)
+            </div>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.descripcion))
+        {
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-secondary">Descripción</label>
+                <div class="form-control modern-input readonly-field">
+                    @Html.DisplayFor(m => m.descripcion)
+                </div>
+            </div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-secondary">Fecha de creación</label>
+            <div class="form-control modern-input readonly-field">
+                @Model.fecha_creacion.ToString("dd/MM/yyyy")
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.idHorarioSemanal)
+
+        <div class="form-footer d-flex justify-content-between align-items-center mt-3">
+            <a href="@Url.Action("Index")" class="btn btn-light cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+
+            <button type="submit" class="btn btn-danger shadow-sm">
+                <i class="bi bi-trash me-1"></i> Eliminar
+            </button>
+        </div>
+    }
+</div>

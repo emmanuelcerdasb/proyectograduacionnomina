@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Mantenimientos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3 class="mb-0">Mantenimientos</h3>
+            <small class="text-muted">Accesos rápidos a los módulos de mantenimiento</small>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <!-- Personas -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Persona")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EEF2FF">
+                        <i class="bi bi-people-fill" style="font-size:1.4rem; color:#4F46E5"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Personas</h5>
+                        <small class="text-muted">Gestionar datos personales</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Roles -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Rol")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#FEF3F2">
+                        <i class="bi bi-person-badge-fill" style="font-size:1.4rem; color:#DC2626"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Roles</h5>
+                        <small class="text-muted">Gestión de Roles</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Credenciales -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Credencial")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#FFF7ED">
+                        <i class="bi bi-shield-lock" style="font-size:1.4rem; color:#EA580C"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Credenciales</h5>
+                        <small class="text-muted">Usuarios y accesos</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Departamentos -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Departamento")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#ECFDF5">
+                        <i class="bi bi-building" style="font-size:1.4rem; color:#16A34A"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Departamentos</h5>
+                        <small class="text-muted">Crear y administrar departamentos</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Puestos -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Puesto")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#F0F9FF">
+                        <i class="bi bi-diagram-3" style="font-size:1.4rem; color:#0284C7"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Puestos</h5>
+                        <small class="text-muted">Administrar puestos laborales</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Horario Semanal -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","HorarioSemanal")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#F9FAFB">
+                        <i class="bi bi-calendar2-week" style="font-size:1.4rem; color:#2563EB"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Horario de la Semana</h5>
+                        <small class="text-muted">Crear y administrar horarios por semana</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Horarios -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Horario")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#F9FAFB">
+                        <i class="bi bi-calendar2-week" style="font-size:1.4rem; color:#2563EB"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Horarios</h5>
+                        <small class="text-muted">Crear y administrar horarios</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Jornadas -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Jornada")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#FAF5FF">
+                        <i class="bi bi-brightness-alt-high" style="font-size:1.4rem; color:#7E22CE"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Jornadas</h5>
+                        <small class="text-muted">Configurar jornadas laborales</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Empleados -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Empleado")" class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EFF6FF">
+                        <i class="bi bi-person-lines-fill" style="font-size:1.4rem; color:#1D4ED8"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Colaboradores</h5>
+                        <small class="text-muted">Crear y administrar colaboradores</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>

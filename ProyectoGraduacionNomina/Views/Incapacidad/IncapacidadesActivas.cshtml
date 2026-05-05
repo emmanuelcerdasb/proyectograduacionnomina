@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Incapacidad>
+
+@{
+    ViewBag.Title = "Incapacidades Activas";
+}
+
+<div class="container mt-4">
+
+    <div class="table-card">
+        <div class="card-header">
+            <h3 class="mb-1">Incapacidades Activas</h3>
+            <small class="text-muted">
+                Incapacidades vigentes en el sistema
+            </small>
+        </div>
+
+        <table class="table w-100 mt-3">
+            <thead>
+                <tr>
+                    <th>Empleado</th>
+                    <th>Tipo</th>
+                    <th>Entidad</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Días</th>
+                    <th>Pago</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">
+                            No hay incapacidades activas.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Empleado.Persona.nombre
+                                @item.Empleado.Persona.apellido1
+                            </td>
+                            <td>@item.TipoIncapacidad.nombre</td>
+                            <td>@item.entidad</td>
+                            <td>@item.fecha_inicio.ToShortDateString()</td>
+                            <td>@item.fecha_fin.ToShortDateString()</td>
+                            <td>@item.dias_incapacidad</td>
+                            <td>@item.porcentaje_pago %</td>
+                            <td>
+                                <span class="badge bg-warning text-dark">
+                                    @item.estado
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn btn-light cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Volver
+            </a>
+        </div>
+    </div>
+</div>

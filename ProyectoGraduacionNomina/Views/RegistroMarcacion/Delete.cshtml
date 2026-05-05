@@ -1,0 +1,46 @@
+﻿@model ProyectoGraduacionNomina.RegistroMarcacion
+
+@{
+    ViewBag.Title = "Eliminar Marcación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-card mt-4" style="max-width:700px;">
+    <div class="form-header text-danger">
+        <h2 class="text-danger"><i class="bi bi-trash me-2"></i>Eliminar Marcación</h2>
+    </div>
+
+    <div class="form-body">
+        <p class="text-danger">¿Está seguro de eliminar esta marcación?</p>
+
+        <dl class="row">
+            <dt class="col-sm-4">Empleado</dt>
+            <dd class="col-sm-8">@((Model.Empleado != null) ? Model.Empleado.Persona.nombre + " " + Model.Empleado.Persona.apellido1 : "N/A")</dd>
+
+            <dt class="col-sm-4">Fecha</dt>
+            <dd class="col-sm-8">@Model.fecha.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4">Hora</dt>
+            <dd class="col-sm-8">@Model.hora</dd>
+
+            <dt class="col-sm-4">Tipo</dt>
+            <dd class="col-sm-8">@Model.tipo</dd>
+
+            <dt class="col-sm-4">Observación</dt>
+            <dd class="col-sm-8">@Model.observacion</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash-fill me-1"></i> Eliminar
+            </button>
+        </div>
+    }
+</div>

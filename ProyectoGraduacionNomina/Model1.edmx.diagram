@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="99960711a51f4e23b93da1d78210a8e5" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="BD_NominaModel.Aguinaldo" Width="1.5" PointX="12" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.AportesSeguridadSocial" Width="2.375" PointX="14.25" PointY="44.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.AuditoriaGeneral" Width="1.625" PointX="3.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Ausencia" Width="1.5" PointX="12" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Bitacora" Width="1.5" PointX="9.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Bonificacion" Width="1.5" PointX="12" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Canton" Width="1.5" PointX="3" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.ClaseHoraExtra" Width="1.5" PointX="9.75" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Credencial" Width="2.125" PointX="7.375" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Departamento" Width="1.5" PointX="5.25" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.DetalleAporte" Width="2.25" PointX="16.75" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.DetalleNomina" Width="2.25" PointX="13.75" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.DetalleRenta" Width="1.5" PointX="12" PointY="41.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Direccion" Width="1.5" PointX="7.5" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Distrito" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Empleado" Width="1.5" PointX="9.75" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Feriado" Width="1.5" PointX="12" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.FeriadoLaborado" Width="1.5" PointX="14.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.HistorialBonificacion" Width="1.5" PointX="14.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.HistorialHoraExtra" Width="1.875" PointX="14.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.HistorialPermiso" Width="1.75" PointX="14.25" PointY="40.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.HistorialVacaciones" Width="1.875" PointX="14.25" PointY="54.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.HoraExtra" Width="2.375" PointX="12" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Horario" Width="2.625" PointX="6.125" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Incapacidad" Width="1.875" PointX="11.625" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Jornada" Width="1.5" PointX="7.5" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Liquidacion" Width="1.5" PointX="15" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Nomina" Width="1.5" PointX="12" PointY="44.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Permiso" Width="1.625" PointX="12" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Persona" Width="2" PointX="7.25" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Provincia" Width="1.5" PointX="0.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Puesto" Width="1.5" PointX="7.5" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Rol" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.SalarioBrutoMensual" Width="1.75" PointX="11.75" PointY="48" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.SesionUsuario" Width="1.875" PointX="9.375" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.SolicitudHorasExtra" Width="1.75" PointX="14.25" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.SolicitudVacaciones" Width="1.5" PointX="14.25" PointY="57.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Tardia" Width="1.5" PointX="12" PointY="51.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.TipoCedula" Width="1.5" PointX="5.25" PointY="32.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.TipoIncapacidad" Width="1.625" PointX="9.5" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.TipoLiquidacion" Width="2" PointX="12.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.TipoPermiso" Width="1.5" PointX="9.75" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.TramosParametrosRenta" Width="2.25" PointX="9" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_NominaModel.Vacaciones" Width="1.5" PointX="12" PointY="55.75" IsExpanded="true" />
+        <AssociationConnector Association="BD_NominaModel.FK_Aguinaldo_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_DetalleAporte_Aporte" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Ausencia_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Bitacora_Credencial" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Bonificacion_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_HistorialBonificacion_Bonificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Canton_Provincia" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Distrito_Canton" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_HoraExtra_ClaseHoraExtra" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Credencial_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Empleado_Credencial" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Sesion_Credencial" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Puesto_Departamento" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_DetalleAporte_Nomina" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_DetalleNomina_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_DetalleNomina_Nomina" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_DetalleNomina_Renta" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_DetalleNomina_Salario" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_DetalleRenta_Tramo" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Direccion_Distrito" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Empleado_Direccion" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Empleado_Horario" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Empleado_Jornada" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Empleado_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Empleado_Puesto" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Feriado_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_HoraExtra_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Incapacidad_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Liquidacion_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Permiso_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_SalarioBruto_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Tardia_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Vacaciones_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_FeriadoLaborado_Feriado" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_HistorialHoraExtra_HoraExtra" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_HistorialPermiso_Permiso" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_HistorialVacaciones_Vacaciones" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_SolicitudHorasExtra_HoraExtra" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Liquidacion_Tipo" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Permiso_TipoPermiso" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Persona_TipoCedula" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_SolicitudVacaciones_Vacaciones" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_NominaModel.FK_Incapacidad_Tipo" />
+        <AssociationConnector Association="BD_NominaModel.FK_Persona_Direccion" />
+        <EntityTypeShape EntityType="BD_NominaModel.EmpleadoHorario" Width="2.25" PointX="17" PointY="32.5" />
+        <EntityTypeShape EntityType="BD_NominaModel.HorarioSemanal" Width="2.25" PointX="8" PointY="46" />
+        <EntityTypeShape EntityType="BD_NominaModel.RegistroMarcacion" Width="2.25" PointX="12" PointY="6" />
+        <AssociationConnector Association="BD_NominaModel.FK_EmpleadoHorario_Empleado" />
+        <AssociationConnector Association="BD_NominaModel.FK_RegistroMarcacion_Empleado" />
+        <AssociationConnector Association="BD_NominaModel.FK_EmpleadoHorario_HorarioSemanal" />
+        <AssociationConnector Association="BD_NominaModel.FK_Horario_HorarioSemanal" />
+        <AssociationConnector Association="BD_NominaModel.FK_HorarioSemanal_Jornada" />
+        <AssociationConnector Association="BD_NominaModel.FK_Incapacidad_Prorroga" />
+        <EntityTypeShape EntityType="BD_NominaModel.Asistencia" Width="2.375" PointX="12" PointY="1.5" />
+        <AssociationConnector Association="BD_NominaModel.FK_Asistencia_Empleado" />
+        <AssociationConnector Association="BD_NominaModel.FK_Empleado_HorarioSemanal" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,38 @@
+﻿@model ProyectoGraduacionNomina.Horario
+
+@{
+    ViewBag.Title = "Detalles del Horario";
+}
+
+<div class="form-card">
+    <div class="form-header">
+        <h2><i class="bi bi-info-circle me-2"></i>Detalles del Horario</h2>
+    </div>
+
+    <div class="form-body">
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-secondary">Día de la semana</label>
+            <div class="form-control modern-input readonly-field">@Html.DisplayFor(model => model.dia_semana)</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-secondary">Hora inicio</label>
+            <div class="form-control modern-input readonly-field">@Html.DisplayFor(model => model.hora_inicio)</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-secondary">Hora fin</label>
+            <div class="form-control modern-input readonly-field">@Html.DisplayFor(model => model.hora_fin)</div>
+        </div>
+    </div>
+
+    <div class="form-footer d-flex justify-content-between align-items-center">
+        <a href="@Url.Action("Details","HorarioSemanal", new { id = Model.HorarioSemanal_idHorarioSemanal })"
+           class="btn btn-light cancel-btn">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver
+        </a>
+        <a href="@Url.Action("Edit", new { id = Model.idHorario })" class="btn btn-primary-custom">
+            <i class="bi bi-pencil-square me-1"></i> Editar
+        </a>
+    </div>
+</div>

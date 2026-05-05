@@ -1,0 +1,94 @@
+﻿@model ProyectoGraduacionNomina.RegistroMarcacion
+
+@{
+    ViewBag.Title = "Nueva Marcación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-card mt-4" style="max-width:700px;">
+    <div class="form-header">
+        <h2><i class="bi bi-clock-history me-2"></i>Registrar Marcación</h2>
+    </div>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "createMarcForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-2" })
+
+            <div class="row g-3">
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Empleado</label>
+                    @Html.DropDownList("Empleado_idEmpleado", (SelectList)ViewBag.Empleado_idEmpleado, "-- Seleccione empleado --", new { @class = "form-control modern-input", id = "EmpleadoSelect" })
+                    @Html.ValidationMessageFor(m => m.Empleado_idEmpleado, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Fecha</label>
+                    <input type="date" name="fecha" class="form-control modern-input" id="fecha" value="@(ViewBag.FechaDefault ?? DateTime.Now.ToString("yyyy-MM-dd"))" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Hora</label>
+                    <input type="time" name="hora" class="form-control modern-input" id="hora" value="@(ViewBag.HoraDefault ?? DateTime.Now.ToString("HH:mm"))" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Tipo</label>
+                    @Html.DropDownListFor(m => m.tipo, new SelectList(new[] { new { Value = "Entrada", Text = "Entrada" }, new { Value = "Salida", Text = "Salida" } }, "Value", "Text"), "-- Seleccione --", new { @class = "form-control modern-input", id = "tipo" })
+                    @Html.ValidationMessageFor(m => m.tipo, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Origen</label>
+                    @Html.DropDownListFor(m => m.origen, new SelectList(new[] { "Colaborador", "Manual (Administrador)", "Sistema (Futuras automatizaciones)" }), "-- Seleccione --", new { @class = "form-control modern-input", id = "origen" })
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Observación (opcional)</label>
+                    @Html.TextAreaFor(m => m.observacion, 3, 120, new { @class = "form-control modern-input", placeholder = "Ej. Salida a almuerzo 1h" })
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-save2 me-1"></i> Guardar
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        // Validación cliente ligera antes de submit
+        $('#createMarcForm').on('submit', function (e) {
+            var empleado = $('#EmpleadoSelect').val();
+            var fecha = $('#fecha').val();
+            var hora = $('#hora').val();
+            var tipo = $('#tipo').val();
+            var errores = [];
+
+            if (!empleado) errores.push("Seleccione un empleado.");
+            if (!fecha) errores.push("Seleccione la fecha.");
+            if (!hora) errores.push("Seleccione la hora.");
+            if (!tipo) errores.push("Seleccione tipo Entrada/Salida.");
+
+            if (errores.length > 0) {
+                e.preventDefault();
+                showToast(errores.join(' '));
+                return false;
+            }
+
+            return true;
+        });
+    </script>
+}

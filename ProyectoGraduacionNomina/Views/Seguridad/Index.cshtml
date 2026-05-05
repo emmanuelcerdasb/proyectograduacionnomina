@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Seguridad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3 class="mb-0">Seguridad</h3>
+            <small class="text-muted">Administración de accesos, usuarios y auditoría</small>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <!-- Credenciales -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Credencial")"
+               class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#FFF7ED">
+                        <i class="bi bi-shield-lock-fill"
+                           style="font-size:1.4rem; color:#EA580C"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Credenciales</h5>
+                        <small class="text-muted">
+                            Usuarios, roles y control de acceso
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Bitácora -->
+        <div class="col-md-4">
+            <a href="@Url.Action("Index","Bitacora")"
+               class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EEF2FF">
+                        <i class="bi bi-journal-text"
+                           style="font-size:1.4rem; color:#4F46E5"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Bitácora</h5>
+                        <small class="text-muted">
+                            Auditoría de acciones del sistema
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>

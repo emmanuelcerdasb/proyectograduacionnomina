@@ -1,0 +1,46 @@
+﻿@model ProyectoGraduacionNomina.Departamento
+
+@{
+    ViewBag.Title = "Editar Departamento";
+}
+
+<div class="form-card">
+    <div class="form-header">
+        <h2><i class="bi bi-pencil-square me-2"></i>Editar Departamento</h2>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+            @Html.HiddenFor(model => model.idDepartamento)
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.nombre,"Nombre", htmlAttributes: new { @class = "form-label fw-semibold" })
+                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control modern-input", placeholder = "Ingrese el nombre del departamento" } })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger small" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.descripcion,"Descripción", htmlAttributes: new { @class = "form-label fw-semibold" })
+                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control modern-input", placeholder = "Ingrese una descripción (opcional)" } })
+                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger small" })
+            </div>
+        </div>
+
+        <div class="form-footer d-flex justify-content-between align-items-center">
+            <a href="@Url.Action("Index")" class="btn btn-light cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-save2 me-1"></i> Actualizar
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

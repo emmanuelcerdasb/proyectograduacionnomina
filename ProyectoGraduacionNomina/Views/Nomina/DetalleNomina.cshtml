@@ -1,0 +1,132 @@
+﻿@model ProyectoGraduacionNomina.Servicios.ResultadoNomina
+
+@{
+    ViewBag.Title = "Detalle de Nómina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="table-card">
+
+        <div class="card-header">
+            <h3 class="mb-2">
+                Resultado del cálculo de nómina
+            </h3>
+            <small class="text-muted">
+                Detalle del período seleccionado
+            </small>
+        </div>
+
+        <div class="p-3">
+
+            <!-- ===============================
+                 INFORMACIÓN GENERAL
+                 =============================== -->
+            <h6 class="text-primary mb-3">Información General</h6>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Empleado ID</strong><br />
+                    @Model.EmpleadoId
+                </div>
+                <div class="col-md-4">
+                    <strong>Periodo</strong><br />
+                    @Model.FechaInicio.ToString("dd/MM/yyyy")
+                    -
+                    @Model.FechaFin.ToString("dd/MM/yyyy")
+                </div>
+                <div class="col-md-4">
+                    <strong>Mes / Año</strong><br />
+                    @Model.Mes / @Model.Anno
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- ===============================
+                 SALARIOS BASE
+                 =============================== -->
+            <h6 class="text-primary mb-3">Salario Base</h6>
+
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>Salario Base Mensual</th>
+                    <td>₡ @Model.SalarioBase.ToString("N2")</td>
+                </tr>
+                <tr>
+                    <th>Salario Diario</th>
+                    <td>₡ @Model.SalarioDiario.ToString("N2")</td>
+                </tr>
+                <tr>
+                    <th>Salario x Hora</th>
+                    <td>₡ @Model.SalarioPorHora.ToString("N2")</td>
+                </tr>
+            </table>
+
+            <!-- ===============================
+                 ASISTENCIA
+                 =============================== -->
+            <h6 class="text-primary mt-4 mb-3">Asistencia</h6>
+
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>Días Laborados</th>
+                    <td>@Model.DiasLaborados</td>
+                </tr>
+                <tr>
+                    <th>Días de Incapacidad</th>
+                    <td>@Model.DiasIncapacidad</td>
+                </tr>
+            </table>
+
+            <!-- ===============================
+                 MONTOS CALCULADOS
+                 =============================== -->
+            <h6 class="text-primary mt-4 mb-3">Montos Calculados</h6>
+
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>Salario Base Devengado</th>
+                    <td>₡ @Model.MontoSalarioBase.ToString("N2")</td>
+                </tr>
+                <tr>
+                    <th>Pago por Incapacidades</th>
+                    <td>₡ @Model.MontoIncapacidades.ToString("N2")</td>
+                </tr>
+                <tr>
+                    <th>Pago por Horas Extra</th>
+                    <td>₡ @Model.MontoHorasExtra.ToString("N2")</td>
+                </tr>
+            </table>
+
+            <!-- ===============================
+                 TOTAL
+                 =============================== -->
+            <div class="alert alert-info mt-4">
+                <h5 class="mb-0">
+                    Total Devengado:
+                    <strong>₡ @Model.TotalDevengado.ToString("N2")</strong>
+                </h5>
+            </div>
+
+            <!-- ===============================
+                 ACCIONES
+                 =============================== -->
+            <div class="form-footer">
+                <a href="@Url.Action("CalcularNomina", "Nomina")"
+                   class="btn btn-light cancel-btn">
+                    <i class="bi bi-arrow-left-circle me-1"></i>
+                    Nuevo cálculo
+                </a>
+
+                <button class="btn btn-danger ms-2" disabled>
+                    <i class="bi bi-file-earmark-pdf me-1"></i>
+                    Exportar PDF
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,99 @@
+﻿@model ProyectoGraduacionNomina.Persona
+
+@{
+    ViewBag.Title = "Detalles Persona";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-card mt-4">
+    <div class="form-header">
+        <h2><i class="bi bi-info-circle me-2"></i>Detalles de Persona</h2>
+    </div>
+
+    <div class="form-body">
+        <dl class="row mb-0">
+
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.nombre</dd>
+
+            <dt class="col-sm-3">Primer Apellido</dt>
+            <dd class="col-sm-9">@Model.apellido1</dd>
+
+            <dt class="col-sm-3">Segundo Apellido</dt>
+            <dd class="col-sm-9">@Model.apellido2</dd>
+
+            <dt class="col-sm-3">Cédula</dt>
+            <dd class="col-sm-9">@Model.cedula</dd>
+
+            <dt class="col-sm-3">Teléfono</dt>
+            <dd class="col-sm-9">@Model.telefono</dd>
+
+            <dt class="col-sm-3">Correo</dt>
+            <dd class="col-sm-9">@Model.correo</dd>
+
+            <dt class="col-sm-3">Fecha Nacimiento</dt>
+            <dd class="col-sm-9">
+                @(Model.fecha_nacimiento != default(DateTime)
+                    ? Model.fecha_nacimiento.ToShortDateString()
+                    : "")
+            </dd>
+
+            <dt class="col-sm-3">Fecha Creación</dt>
+            <dd class="col-sm-9">
+                @(Model.fecha_creacion != default(DateTime)
+                    ? Model.fecha_creacion.ToShortDateString()
+                    : "")
+            </dd>
+
+            <dt class="col-sm-3">Tipo Cédula</dt>
+            <dd class="col-sm-9">
+                @(Model.TipoCedula != null ? Model.TipoCedula.tipo_cedula : "")
+            </dd>
+
+            <!-- ========================================= -->
+            <!-- DATOS DE DIRECCIÓN COMPLETOS -->
+            <!-- ========================================= -->
+
+            <dt class="col-sm-3">Provincia</dt>
+            <dd class="col-sm-9">
+                @(Model.Direccion != null
+                    ? Model.Direccion.Distrito.Canton.Provincia.nombre
+                    : "No asignado")
+            </dd>
+
+            <dt class="col-sm-3">Cantón</dt>
+            <dd class="col-sm-9">
+                @(Model.Direccion != null
+                    ? Model.Direccion.Distrito.Canton.nombre
+                    : "No asignado")
+            </dd>
+
+            <dt class="col-sm-3">Distrito</dt>
+            <dd class="col-sm-9">
+                @(Model.Direccion != null
+                    ? Model.Direccion.Distrito.nombre
+                    : "No asignado")
+            </dd>
+
+            <dt class="col-sm-3">Dirección Exacta</dt>
+            <dd class="col-sm-9">
+                @(Model.Direccion != null
+                    ? Model.Direccion.detalle
+                    : "No asignado")
+            </dd>
+
+        </dl>
+    </div>
+
+    <div class="form-footer">
+        <a href="@Url.Action("Index")" class="btn cancel-btn">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver
+        </a>
+
+        <a href="@Url.Action("Edit", new { id = Model.idPersona })"
+           class="btn btn-primary-custom">
+            <i class="bi bi-pencil-square me-1"></i> Editar
+        </a>
+
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Permisos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    bool isAdmin = User.IsInRole("Administrador");
+    bool isJefe = User.IsInRole("Jefa") || User.IsInRole("Jefe");
+}
+<div class="container mt-3">
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3 class="mb-0">Permisos</h3>
+            <small class="text-muted">
+                Gestión de solicitudes de permisos laborales
+            </small>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <!-- Solicitar Permiso -->
+        <div class="col-md-4">
+            <a href="@Url.Action("CrearSolicitudPermiso","Permiso")"
+               class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#ECFDF5">
+                        <i class="bi bi-plus-circle-fill"
+                           style="font-size:1.4rem; color:#16A34A"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Solicitar Permiso</h5>
+                        <small class="text-muted">Registrar una nueva solicitud</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Mis Solicitudes -->
+        <div class="col-md-4">
+            <a href="@Url.Action("MisSolicitudes","Permiso")"
+               class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EFF6FF">
+                        <i class="bi bi-list-check"
+                           style="font-size:1.4rem; color:#1D4ED8"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Mis Solicitudes</h5>
+                        <small class="text-muted">Ver estado de mis permisos</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Solicitudes Pendientes -->
+        @if (isAdmin || isJefe)
+        {
+            <div class="col-md-4">
+                <a href="@Url.Action("SolicitudesPendientes","Permiso")"
+                   class="card p-3 h-100 text-decoration-none text-reset">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3 rounded-3 p-3" style="background:#FEF3C7">
+                            <i class="bi bi-hourglass-split"
+                               style="font-size:1.4rem; color:#D97706"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Solicitudes Pendientes</h5>
+                            <small class="text-muted">Aprobar o rechazar permisos</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>

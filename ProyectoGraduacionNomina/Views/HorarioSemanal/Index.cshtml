@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ProyectoGraduacionNomina.HorarioSemanal>
+
+@{
+    ViewBag.Title = "Horarios Semanales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="table-card">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="mb-1">
+                    <i class="bi bi-calendar-week me-1"></i>
+                    Horarios Semanales
+                </h3>
+                <small class="text-muted">
+                    Configuración base de jornadas laborales
+                </small>
+            </div>
+
+            <a href="@Url.Action("Create")" class="btn btn-primary-custom btn-sm">
+                <i class="bi bi-plus-circle me-1"></i>
+                Nuevo horario semanal
+            </a>
+        </div>
+
+        <div class="p-3">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Jornada</th>
+                        <th>Fecha creación</th>
+                        <th class="text-center">Operaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.nombre</td>
+                                <td class="text-muted">@item.descripcion</td>
+                                <td>@item.Jornada.nombre</td>
+                                <td>@item.fecha_creacion.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    @{
+                                        ViewBag.RowId = item.idHorarioSemanal;
+                                        ViewBag.ControllerName = "HorarioSemanal";
+                                    }
+                                    @Html.Partial("_RowActions")
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">
+                                No hay horarios semanales registrados
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

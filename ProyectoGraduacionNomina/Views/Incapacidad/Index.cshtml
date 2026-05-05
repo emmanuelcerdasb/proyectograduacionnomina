@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Incapacidades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3 class="mb-0">Incapacidades</h3>
+            <small class="text-muted">
+                Gestión y control de incapacidades laborales
+            </small>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <!-- Registrar Incapacidad -->
+        <div class="col-md-4">
+            <a href="@Url.Action("CrearIncapacidad")"
+               class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#EEF2FF">
+                        <i class="bi bi-plus-circle"
+                           style="font-size:1.4rem; color:#4F46E5"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Registrar incapacidad</h5>
+                        <small class="text-muted">
+                            Ingresar una nueva incapacidad
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Mis Incapacidades -->
+        <div class="col-md-4">
+            <a href="@Url.Action("MisIncapacidades")"
+               class="card p-3 h-100 text-decoration-none text-reset">
+                <div class="d-flex align-items-center">
+                    <div class="me-3 rounded-3 p-3" style="background:#ECFDF5">
+                        <i class="bi bi-person-check-fill"
+                           style="font-size:1.4rem; color:#16A34A"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Mis incapacidades</h5>
+                        <small class="text-muted">
+                            Historial personal de incapacidades
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        @if (User.IsInRole("Administrador") ||
+             User.IsInRole("Jefe") ||
+             User.IsInRole("Jefa") ||
+             User.IsInRole("RRHH"))
+        {
+            <!-- Incapacidades Activas -->
+            <div class="col-md-4">
+                <a href="@Url.Action("IncapacidadesActivas")"
+                   class="card p-3 h-100 text-decoration-none text-reset">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3 rounded-3 p-3" style="background:#FFF7ED">
+                            <i class="bi bi-clipboard-heart"
+                               style="font-size:1.4rem; color:#EA580C"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Incapacidades activas</h5>
+                            <small class="text-muted">
+                                Incapacidades vigentes en el sistema
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>

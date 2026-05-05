@@ -1,0 +1,70 @@
+﻿@model ProyectoGraduacionNomina.Horario
+
+@{
+    ViewBag.Title = "Editar Horario";
+}
+
+<div class="form-card">
+    <div class="form-header">
+        <h2>
+            <i class="bi bi-pencil-square me-2"></i>Editar Horario
+        </h2>
+
+        <small class="text-muted">
+            Horario semanal: <strong>@ViewBag.HorarioSemanalNombre</strong>
+        </small>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.idHorario)
+        @Html.HiddenFor(model => model.HorarioSemanal_idHorarioSemanal)
+
+        <div class="form-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.dia_semana, "Día de la Semana",
+                    new { @class = "form-label fw-semibold" })
+                @Html.EditorFor(model => model.dia_semana,
+                    new { htmlAttributes = new { @class = "form-control modern-input" } })
+                @Html.ValidationMessageFor(model => model.dia_semana, "",
+                    new { @class = "text-danger small" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.hora_inicio, "Hora Inicio",
+                    new { @class = "form-label fw-semibold" })
+                @Html.EditorFor(model => model.hora_inicio,
+                    new { htmlAttributes = new { @class = "form-control modern-input", type = "time" } })
+                @Html.ValidationMessageFor(model => model.hora_inicio, "",
+                    new { @class = "text-danger small" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.hora_fin, "Hora Finalización",
+                    new { @class = "form-label fw-semibold" })
+                @Html.EditorFor(model => model.hora_fin,
+                    new { htmlAttributes = new { @class = "form-control modern-input", type = "time" } })
+                @Html.ValidationMessageFor(model => model.hora_fin, "",
+                    new { @class = "text-danger small" })
+            </div>
+        </div>
+
+        <div class="form-footer d-flex justify-content-between align-items-center">
+            <a href="@Url.Action("Details","HorarioSemanal", new { id = Model.HorarioSemanal_idHorarioSemanal })"
+               class="btn btn-light cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-save2 me-1"></i> Actualizar
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

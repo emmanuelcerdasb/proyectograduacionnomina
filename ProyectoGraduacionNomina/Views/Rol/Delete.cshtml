@@ -1,0 +1,32 @@
+﻿@model ProyectoGraduacionNomina.Rol
+
+@{
+    ViewBag.Title = "Eliminar Rol";
+}
+
+<div class="form-card">
+    <div class="form-header">
+        <h2 class="text-danger"><i class="bi bi-trash me-2"></i>Eliminar Rol</h2>
+    </div>
+
+    <div class="form-body">
+        <p class="text-danger">¿Está seguro de eliminar el rol <strong>@Model.nombre</strong>?</p>
+        <dl class="row">
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.nombre)</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn btn-light cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash-fill me-1"></i> Eliminar
+            </button>
+        </div>
+    }
+</div>

@@ -1,0 +1,89 @@
+﻿@model ProyectoGraduacionNomina.Empleado
+
+@{
+    ViewBag.Title = "Editar Colaborador";
+}
+
+<div class="form-card">
+    <div class="form-header">
+        <h2><i class="bi bi-person-fill me-2"></i>Editar Colaborador</h2>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.idEmpleado)
+
+<div class="form-body">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Persona_idPersona, "Persona", new { @class = "form-label fw-semibold" })
+        @Html.DropDownList("Persona_idPersona", null, "-- Seleccione una persona --", new { @class = "form-select modern-input" })
+        @Html.ValidationMessageFor(m => m.Persona_idPersona, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Credencial_idCredencial, "Credencial", new { @class = "form-label fw-semibold" })
+        @Html.DropDownList("Credencial_idCredencial", null, "-- Seleccione una credencial --", new { @class = "form-select modern-input" })
+        @Html.ValidationMessageFor(m => m.Credencial_idCredencial, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Puesto_idPuesto, "Puesto", new { @class = "form-label fw-semibold" })
+        @Html.DropDownList("Puesto_idPuesto", null, "-- Seleccione un puesto --", new { @class = "form-select modern-input" })
+        @Html.ValidationMessageFor(m => m.Puesto_idPuesto, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Jornada_idJornada, "Jornada", new { @class = "form-label fw-semibold" })
+        @Html.DropDownList("Jornada_idJornada", null, "-- Seleccione una jornada --", new { @class = "form-select modern-input" })
+        @Html.ValidationMessageFor(m => m.Jornada_idJornada, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.HorarioSemanal_idHorarioSemanal,"Horario semanal",new { @class = "form-label fw-semibold" })
+        @Html.DropDownListFor(m => m.HorarioSemanal_idHorarioSemanal,(SelectList)ViewBag.HorarioSemanal_idHorarioSemanal,"-- Seleccione un horario semanal --",new { @class = "form-select modern-input" })
+
+        <small class="text-muted">
+            Este horario se usará para asistencia, horas y nómina.
+        </small>
+
+        @Html.ValidationMessageFor(m => m.HorarioSemanal_idHorarioSemanal,"",new { @class = "text-danger small" })
+    </div>
+
+
+    <div class="mb-3 row">
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.fecha_ingreso, "Fecha Ingreso", new { @class = "form-label fw-semibold" })
+            @Html.EditorFor(m => m.fecha_ingreso, new { htmlAttributes = new { @class = "form-control modern-input", type = "date" } })
+            @Html.ValidationMessageFor(m => m.fecha_ingreso, "", new { @class = "text-danger small" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.fecha_salida, "Fecha Salida", new { @class = "form-label fw-semibold" })
+            @Html.EditorFor(m => m.fecha_salida, new { htmlAttributes = new { @class = "form-control modern-input", type = "date" } })
+            @Html.ValidationMessageFor(m => m.fecha_salida, "", new { @class = "text-danger small" })
+        </div>
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.estado, "Estado", new { @class = "form-label fw-semibold" })
+        @Html.DropDownList("estado", new SelectList(new[] { new { Value = "Activo", Text = "Activo" }, new { Value = "Inactivo", Text = "Inactivo" } }, "Value", "Text", Model.estado), new { @class = "form-select modern-input" })
+        @Html.ValidationMessageFor(m => m.estado, "", new { @class = "text-danger small" })
+    </div>
+</div>
+
+        <div class="form-footer">
+            <a href="@Url.Action("Index")" class="btn btn-light cancel-btn">
+                <i class="bi bi-arrow-left-circle me-1"></i> Volver
+            </a>
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-save2 me-1"></i> Guardar
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,41 @@
+﻿@model ProyectoGraduacionNomina.Empleado
+
+@{
+    ViewBag.Title = "Eliminar Empleado";
+}
+
+<div class="form-card delete-card">
+    <div class="form-header text-danger">
+        <h2 class="text-danger"><i class="bi bi-trash me-2"></i>Eliminar Colaborador</h2>
+    </div>
+
+   
+    <div class="form-body">
+        <p class="text-danger">¿Está seguro de eliminar al colaborador <strong>@Model.Persona.nombre @Model.Persona.apellido1 @Model.Persona.apellido2</strong>?</p>
+           
+
+            <dl class="row">
+                <dt class="col-sm-3">Cédula</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(m => m.Persona.cedula)</dd>
+
+                <dt class="col-sm-3">Nombre</dt>
+                <dd class="col-sm-9">@((Model.Persona != null) ? Model.Persona.nombre + " " + Model.Persona.apellido1 + " " + Model.Persona.apellido2 : "" )</dd>
+
+                <dt class="col-sm-3">Puesto</dt>
+                <dd class="col-sm-9">@((Model.Puesto != null) ? Model.Puesto.nombre : "")</dd>
+            </dl>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-footer">
+                <a href="@Url.Action("Index")" class="btn btn-light cancel-btn">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-danger shadow-sm">
+                    <i class="bi bi-trash me-1"></i> Eliminar
+                </button>
+            </div>
+        }
+    </div>

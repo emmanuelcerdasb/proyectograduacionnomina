@@ -1,0 +1,54 @@
+﻿@* ~/Views/Shared/_RowActions.cshtml *@
+@{
+    var id = ViewBag.RowId ?? ViewData["RowId"];
+    var controllerName = ViewBag.ControllerName
+        ?? ViewData["ControllerName"]
+        ?? ViewContext.RouteData.Values["controller"];
+
+    // Parámetros opcionales para botón adicional
+    var extraAction = ViewBag.ExtraAction ?? ViewData["ExtraAction"];
+    var extraController = ViewBag.ExtraController ?? ViewData["ExtraController"];
+    var extraId = ViewBag.ExtraId ?? ViewData["ExtraId"];
+    var extraTitle = ViewBag.ExtraTitle ?? ViewData["ExtraTitle"];
+    var extraIcon = ViewBag.ExtraIcon ?? ViewData["ExtraIcon"];
+    var extraCss = ViewBag.ExtraCss ?? ViewData["ExtraCss"];
+}
+
+<div class="d-flex justify-content-center align-items-center gap-2">
+
+    <!-- Editar -->
+    <a href="@Url.Action("Edit", controllerName, new { id = id })"
+       class="btn btn-sm btn-warning shadow-sm icon-btn"
+       title="Editar">
+        <i class="bi bi-pencil-square" aria-hidden="true"></i>
+    </a>
+
+    <!-- Detalles -->
+    <a href="@Url.Action("Details", controllerName, new { id = id })"
+       class="btn btn-sm btn-info text-white shadow-sm icon-btn"
+       title="Detalles">
+        <i class="bi bi-eye" aria-hidden="true"></i>
+    </a>
+
+    <!-- Eliminar -->
+    <a href="@Url.Action("Delete", controllerName, new { id = id })"
+       class="btn btn-sm btn-danger shadow-sm icon-btn"
+       title="Eliminar">
+        <i class="bi bi-trash" aria-hidden="true"></i>
+    </a>
+
+    @* Botón adicional opcional *@
+    @if (extraAction != null && extraController != null && extraId != null && Convert.ToInt32(extraId) > 0)
+    {
+        <a href="@Url.Action(
+        extraAction.ToString(),
+        extraController.ToString(),
+        new { id = extraId }
+    )"
+           class="btn btn-sm @(extraCss ?? "btn-outline-primary") shadow-sm icon-btn"
+           title="@(extraTitle ?? "Acción adicional")">
+            <i class="bi @(extraIcon ?? "bi-arrow-right-circle")" aria-hidden="true"></i>
+        </a>
+    }
+
+</div>
