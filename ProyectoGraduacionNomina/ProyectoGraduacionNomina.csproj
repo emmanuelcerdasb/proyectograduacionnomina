@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\HorarioSemanalController.cs" />
     <Compile Include="Controllers\AguinaldoController.cs" />
+    <Compile Include="Controllers\LiquidacionController.cs" />
     <Compile Include="Controllers\HorasExtraController.cs" />
     <Compile Include="Controllers\IncapacidadController.cs" />
     <Compile Include="Controllers\JornadaController.cs" />
@@ -291,6 +292,8 @@
     </Compile>
     <Compile Include="Servicios\AsistenciaService.cs" />
     <Compile Include="Servicios\AguinaldoService.cs" />
+    <Compile Include="Servicios\LiquidacionService.cs" />
+    <Compile Include="Servicios\ResultadoLiquidacion.cs" />
     <Compile Include="Servicios\HorasExtraService.cs" />
     <Compile Include="Servicios\NominaService.cs" />
     <Compile Include="Servicios\ResultadoAsistenciaDiaria.cs" />
