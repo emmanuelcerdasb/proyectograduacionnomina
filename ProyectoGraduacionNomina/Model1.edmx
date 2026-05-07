@@ -208,6 +208,25 @@
           <Property Name="fecha_fin" Type="date" />
           <Property Name="fecha_asignacion" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="EvaluacionPersonal">
+          <Key>
+            <PropertyRef Name="idEvaluacion" />
+          </Key>
+          <Property Name="idEvaluacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Empleado_idEmpleado" Type="int" Nullable="false" />
+          <Property Name="anio" Type="int" Nullable="false" />
+          <Property Name="semestre" Type="tinyint" Nullable="false" />
+          <Property Name="nota_puntualidad" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="nota_calidad" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="nota_trabajo_equipo" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="nota_iniciativa" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="nota_cumplimiento" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="nota_final" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="calificacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="evaluador" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="1000" />
+          <Property Name="fecha_evaluacion" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Feriado">
           <Key>
             <PropertyRef Name="idFeriado" />
@@ -551,6 +570,18 @@
           <Property Name="fecha_solicitud" Type="date" Nullable="false" />
           <Property Name="fecha_aprobacion" Type="date" />
         </EntityType>
+        <Association Name="FK__Evaluacio__Emple__76619304">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="EvaluacionPersonal" Type="Self.EvaluacionPersonal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="EvaluacionPersonal">
+              <PropertyRef Name="Empleado_idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Aguinaldo_Empleado">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
           <End Role="Aguinaldo" Type="Self.Aguinaldo" Multiplicity="*" />
@@ -1194,6 +1225,7 @@
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmpleadoHorario" EntityType="Self.EmpleadoHorario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EvaluacionPersonal" EntityType="Self.EvaluacionPersonal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feriado" EntityType="Self.Feriado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FeriadoLaborado" EntityType="Self.FeriadoLaborado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistorialBonificacion" EntityType="Self.HistorialBonificacion" Schema="dbo" store:Type="Tables" />
@@ -1224,6 +1256,10 @@
           <EntitySet Name="TipoPermiso" EntityType="Self.TipoPermiso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TramosParametrosRenta" EntityType="Self.TramosParametrosRenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vacaciones" EntityType="Self.Vacaciones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Evaluacio__Emple__76619304" Association="Self.FK__Evaluacio__Emple__76619304">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="EvaluacionPersonal" EntitySet="EvaluacionPersonal" />
+          </AssociationSet>
           <AssociationSet Name="FK_Aguinaldo_Empleado" Association="Self.FK_Aguinaldo_Empleado">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Aguinaldo" EntitySet="Aguinaldo" />
@@ -1658,6 +1694,7 @@
           <NavigationProperty Name="Asistencia" Relationship="BD_NominaModel.FK_Asistencia_Empleado" FromRole="Empleado" ToRole="Asistencia" />
           <Property Name="HorarioSemanal_idHorarioSemanal" Type="Int32" />
           <NavigationProperty Name="HorarioSemanal" Relationship="BD_NominaModel.FK_Empleado_HorarioSemanal" FromRole="Empleado" ToRole="HorarioSemanal" />
+          <NavigationProperty Name="EvaluacionPersonal" Relationship="BD_NominaModel.FK__Evaluacio__Emple__76619304" FromRole="Empleado" ToRole="EvaluacionPersonal" />
         </EntityType>
         <EntityType Name="Feriado">
           <Key>
@@ -2786,6 +2823,11 @@
             <End Role="HorarioSemanal" EntitySet="HorarioSemanal" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
+          <EntitySet Name="EvaluacionPersonal" EntityType="BD_NominaModel.EvaluacionPersonal" />
+          <AssociationSet Name="FK__Evaluacio__Emple__76619304" Association="BD_NominaModel.FK__Evaluacio__Emple__76619304">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="EvaluacionPersonal" EntitySet="EvaluacionPersonal" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Incapacidad_Tipo">
           <End Type="BD_NominaModel.TipoIncapacidad" Role="TipoIncapacidad" Multiplicity="1" />
@@ -2966,6 +3008,38 @@
             </Principal>
             <Dependent Role="Empleado">
               <PropertyRef Name="HorarioSemanal_idHorarioSemanal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EvaluacionPersonal">
+          <Key>
+            <PropertyRef Name="idEvaluacion" />
+          </Key>
+          <Property Name="idEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Empleado_idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="anio" Type="Int32" Nullable="false" />
+          <Property Name="semestre" Type="Byte" Nullable="false" />
+          <Property Name="nota_puntualidad" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="nota_calidad" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="nota_trabajo_equipo" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="nota_iniciativa" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="nota_cumplimiento" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="nota_final" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="calificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="evaluador" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="comentarios" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_evaluacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Empleado" Relationship="BD_NominaModel.FK__Evaluacio__Emple__76619304" FromRole="EvaluacionPersonal" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="FK__Evaluacio__Emple__76619304">
+          <End Type="BD_NominaModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="BD_NominaModel.EvaluacionPersonal" Role="EvaluacionPersonal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="EvaluacionPersonal">
+              <PropertyRef Name="Empleado_idEmpleado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3566,6 +3640,26 @@
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="Empleado_idEmpleado" ColumnName="Empleado_idEmpleado" />
                 <ScalarProperty Name="idAsistencia" ColumnName="idAsistencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EvaluacionPersonal">
+            <EntityTypeMapping TypeName="BD_NominaModel.EvaluacionPersonal">
+              <MappingFragment StoreEntitySet="EvaluacionPersonal">
+                <ScalarProperty Name="fecha_evaluacion" ColumnName="fecha_evaluacion" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="evaluador" ColumnName="evaluador" />
+                <ScalarProperty Name="calificacion" ColumnName="calificacion" />
+                <ScalarProperty Name="nota_final" ColumnName="nota_final" />
+                <ScalarProperty Name="nota_cumplimiento" ColumnName="nota_cumplimiento" />
+                <ScalarProperty Name="nota_iniciativa" ColumnName="nota_iniciativa" />
+                <ScalarProperty Name="nota_trabajo_equipo" ColumnName="nota_trabajo_equipo" />
+                <ScalarProperty Name="nota_calidad" ColumnName="nota_calidad" />
+                <ScalarProperty Name="nota_puntualidad" ColumnName="nota_puntualidad" />
+                <ScalarProperty Name="semestre" ColumnName="semestre" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+                <ScalarProperty Name="Empleado_idEmpleado" ColumnName="Empleado_idEmpleado" />
+                <ScalarProperty Name="idEvaluacion" ColumnName="idEvaluacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

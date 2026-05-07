@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\HorarioSemanalController.cs" />
     <Compile Include="Controllers\AguinaldoController.cs" />
+    <Compile Include="Controllers\EvaluacionController.cs" />
     <Compile Include="Controllers\LiquidacionController.cs" />
     <Compile Include="Controllers\VacacionesController.cs" />
     <Compile Include="Controllers\HorasExtraController.cs" />
@@ -207,6 +208,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoHorario.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EvaluacionPersonal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Feriado.cs">

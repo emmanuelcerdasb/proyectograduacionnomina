@@ -1,0 +1,167 @@
+@{
+    ViewBag.Title = "Nueva Evaluacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+
+        <div class="card-header">
+            <h3 class="mb-1">
+                <i class="bi bi-star me-2"></i>
+                Nueva Evaluacion de Desempeno
+            </h3>
+            <small class="text-muted">Puntaje de 1 a 10 por criterio &mdash; la nota final es el promedio</small>
+        </div>
+
+        <div class="p-4">
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle me-1"></i> @TempData["Error"]
+                </div>
+            }
+
+            @using (Html.BeginForm("Crear", "Evaluacion", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Empleado</label>
+                        @Html.DropDownList("empleadoId",
+                            ViewBag.EmpleadoId as IEnumerable<SelectListItem>,
+                            "-- Seleccione un empleado --",
+                            new { @class = "form-select" })
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold">Anio</label>
+                        <input type="number" name="anio" class="form-control"
+                               value="@ViewBag.AnioActual" min="2020" max="2099" required />
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold">Semestre</label>
+                        <select name="semestre" class="form-select">
+                            <option value="1" @(ViewBag.SemestreActual == 1 ? "selected" : "")>1 &mdash; Enero a Junio</option>
+                            <option value="2" @(ViewBag.SemestreActual == 2 ? "selected" : "")>2 &mdash; Julio a Diciembre</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold">Fecha evaluacion</label>
+                        <input type="date" name="fechaEvaluacion" class="form-control"
+                               value="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Evaluador</label>
+                        <input type="text" name="evaluador" class="form-control"
+                               placeholder="Nombre del evaluador" maxlength="100" required />
+                    </div>
+
+                </div>
+
+                <h6 class="text-primary mb-3">Criterios de evaluacion (1 = Minimo &nbsp; 10 = Maximo)</h6>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Puntualidad y asistencia</label>
+                        <div class="input-group">
+                            <input type="number" name="notaPuntualidad" id="nPunt" class="form-control"
+                                   min="1" max="10" step="0.5" value="10" required onchange="calcularPromedio()" />
+                            <span class="input-group-text">/ 10</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Calidad del trabajo</label>
+                        <div class="input-group">
+                            <input type="number" name="notaCalidad" id="nCal" class="form-control"
+                                   min="1" max="10" step="0.5" value="10" required onchange="calcularPromedio()" />
+                            <span class="input-group-text">/ 10</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Trabajo en equipo</label>
+                        <div class="input-group">
+                            <input type="number" name="notaTrabajoEquipo" id="nTeam" class="form-control"
+                                   min="1" max="10" step="0.5" value="10" required onchange="calcularPromedio()" />
+                            <span class="input-group-text">/ 10</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Iniciativa y proactividad</label>
+                        <div class="input-group">
+                            <input type="number" name="notaIniciativa" id="nIni" class="form-control"
+                                   min="1" max="10" step="0.5" value="10" required onchange="calcularPromedio()" />
+                            <span class="input-group-text">/ 10</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Cumplimiento de metas</label>
+                        <div class="input-group">
+                            <input type="number" name="notaCumplimiento" id="nCump" class="form-control"
+                                   min="1" max="10" step="0.5" value="10" required onchange="calcularPromedio()" />
+                            <span class="input-group-text">/ 10</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-end">
+                        <div class="alert mb-0 w-100 text-center" id="alertPromedio" style="background:#e8f4e8;">
+                            <strong>Nota final promedio</strong><br />
+                            <span id="lblPromedio" class="fs-4 fw-bold text-success">10.00</span>
+                            <br /><span id="lblCalif" class="badge bg-success">Excelente</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Comentarios</label>
+                    <textarea name="comentarios" class="form-control" rows="3"
+                              placeholder="Observaciones generales de la evaluacion" maxlength="1000"></textarea>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary-custom">
+                        <i class="bi bi-floppy me-1"></i> Guardar evaluacion
+                    </button>
+                    <a href="@Url.Action("Index", "Evaluacion")" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Volver
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function calcularPromedio() {
+        var vals = [
+            parseFloat(document.getElementById('nPunt').value) || 0,
+            parseFloat(document.getElementById('nCal').value) || 0,
+            parseFloat(document.getElementById('nTeam').value) || 0,
+            parseFloat(document.getElementById('nIni').value) || 0,
+            parseFloat(document.getElementById('nCump').value) || 0
+        ];
+        var prom = vals.reduce(function(a, b) { return a + b; }, 0) / 5;
+        document.getElementById('lblPromedio').textContent = prom.toFixed(2);
+        var calif, color;
+        if (prom >= 9)      { calif = 'Excelente'; color = 'bg-success'; }
+        else if (prom >= 7) { calif = 'Bueno';     color = 'bg-primary'; }
+        else if (prom >= 5) { calif = 'Regular';   color = 'bg-warning text-dark'; }
+        else                { calif = 'Deficiente'; color = 'bg-danger'; }
+        var lbl = document.getElementById('lblCalif');
+        lbl.textContent = calif;
+        lbl.className = 'badge ' + color;
+    }
+</script>

@@ -12,15 +12,22 @@ namespace ProyectoGraduacionNomina
     using System;
     using System.Collections.Generic;
     
-    public partial class Aguinaldo
+    public partial class EvaluacionPersonal
     {
-        public int idAguinaldo { get; set; }
+        public int idEvaluacion { get; set; }
         public int Empleado_idEmpleado { get; set; }
         public int anio { get; set; }
-        public decimal monto { get; set; }
-        public System.DateTime fecha_calculo { get; set; }
-        public System.DateTime fecha_pago { get; set; }
-        public string estado { get; set; }
+        public byte semestre { get; set; }
+        public decimal nota_puntualidad { get; set; }
+        public decimal nota_calidad { get; set; }
+        public decimal nota_trabajo_equipo { get; set; }
+        public decimal nota_iniciativa { get; set; }
+        public decimal nota_cumplimiento { get; set; }
+        public decimal nota_final { get; set; }
+        public string calificacion { get; set; }
+        public string evaluador { get; set; }
+        public string comentarios { get; set; }
+        public System.DateTime fecha_evaluacion { get; set; }
     
         public virtual Empleado Empleado { get; set; }
     }
