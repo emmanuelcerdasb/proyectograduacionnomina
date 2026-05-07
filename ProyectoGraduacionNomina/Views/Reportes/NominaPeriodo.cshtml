@@ -1,0 +1,53 @@
+@{
+    ViewBag.Title = "Reporte de Nomina por Periodo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] meses = { "", "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                        "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" };
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+        <div class="card-header">
+            <h3 class="mb-1"><i class="bi bi-receipt me-2"></i>Reporte de Nomina por Periodo</h3>
+            <small class="text-muted">Seleccione el mes y anio para generar el reporte</small>
+        </div>
+        <div class="p-4">
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger"><i class="bi bi-exclamation-circle me-1"></i> @TempData["Error"]</div>
+            }
+
+            @using (Html.BeginForm("NominaPeriodo", "Reportes", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Mes</label>
+                        <select name="mes" class="form-select" required>
+                            @for (int m = 1; m <= 12; m++)
+                            {
+                                string[] mn = { "", "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                                                "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" };
+                                <option value="@m" @(m == ViewBag.MesActual ? "selected" : "")>@mn[m]</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold">Anio</label>
+                        <input type="number" name="anno" class="form-control"
+                               value="@ViewBag.AnioActual" min="2020" max="2099" required />
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end gap-2">
+                        <button type="submit" class="btn btn-primary-custom">
+                            <i class="bi bi-search me-1"></i> Generar
+                        </button>
+                        <a href="@Url.Action("Index","Reportes")" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
