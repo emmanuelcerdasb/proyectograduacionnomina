@@ -1,0 +1,108 @@
+﻿@model ProyectoGraduacionNomina.Servicios.ResultadoAguinaldo
+
+@{
+    ViewBag.Title = "Detalle Aguinaldo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] meses = { "", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                       "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+        <div class="card-header">
+            <h3 class="mb-2">Resultado del calculo de aguinaldo</h3>
+            <small class="text-muted">Periodo: @Model.FechaInicioPeriodo.ToString("dd/MM/yyyy") al @Model.FechaFinPeriodo.ToString("dd/MM/yyyy")</small>
+        </div>
+
+        <div class="p-3">
+
+            <h6 class="text-primary mb-3">Empleado</h6>
+            <div class="row mb-3">
+                <div class="col-md-4"><strong>Nombre</strong><br />@Model.NombreEmpleado</div>
+                <div class="col-md-4"><strong>Cedula</strong><br />@Model.CedulaEmpleado</div>
+                <div class="col-md-4"><strong>Anio aguinaldo</strong><br />@Model.Anio</div>
+            </div>
+
+            <hr />
+
+            <h6 class="text-primary mt-3 mb-3">Salarios del periodo (@Model.MesesConsiderados meses)</h6>
+
+            @if (!Model.Meses.Any())
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    No se encontraron salarios guardados en el periodo. Calcule y guarde las nominas del periodo primero.
+                </div>
+            }
+            else
+            {
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mes</th>
+                            <th class="text-end">Salario Bruto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var m in Model.Meses)
+                        {
+                            <tr>
+                                <td>@meses[m.Mes] @m.Anio</td>
+                                <td class="text-end">@m.SalarioBruto.ToString("N2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <th>Total salarios del periodo</th>
+                            <th class="text-end">@Model.SumatoriaSalarios.ToString("N2")</th>
+                        </tr>
+                        <tr>
+                            <th>Dividido entre 12</th>
+                            <th class="text-end">/ 12</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+
+            <div class="alert alert-success mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0">Monto de Aguinaldo @Model.Anio</h5>
+                        <small class="text-muted">Fecha maxima de pago: 20 de diciembre @Model.Anio</small>
+                    </div>
+                    <h4 class="mb-0"><strong>@Model.MontoAguinaldo.ToString("N2")</strong></h4>
+                </div>
+            </div>
+
+            @if (Model.YaGuardado)
+            {
+                <div class="alert alert-info mt-2">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Este aguinaldo ya fue guardado anteriormente.
+                </div>
+            }
+
+            <div class="form-footer">
+                <a href="@Url.Action("Calcular", "Aguinaldo")" class="btn btn-light cancel-btn">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Nuevo calculo
+                </a>
+
+                @if (!Model.YaGuardado && Model.Meses.Any())
+                {
+                    using (Html.BeginForm("Guardar", "Aguinaldo", FormMethod.Post, new { style = "display:inline" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="empleadoId" value="@Model.EmpleadoId" />
+                        <input type="hidden" name="anio"       value="@Model.Anio" />
+                        <button type="submit" class="btn btn-success ms-2"
+                                onclick="return confirm('Guardar el aguinaldo de @Model.NombreEmpleado para @Model.Anio?')">
+                            <i class="bi bi-floppy me-1"></i> Guardar aguinaldo
+                        </button>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
