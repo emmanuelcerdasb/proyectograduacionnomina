@@ -1,0 +1,71 @@
+# ============================================================
+# .gitignore para ASP.NET MVC 5 / .NET Framework 4.7.2
+# ============================================================
+
+# -------------------------------------------------------
+# CONFIGURACIÓN SENSIBLE
+# -------------------------------------------------------
+# Web.config contiene la cadena de conexión a SQL Server.
+# Usar Web.config.example como plantilla en su lugar.
+ProyectoGraduacionNomina/Web.config
+
+# NO ignorar estos (son transforms sin credenciales, van en repo):
+# ProyectoGraduacionNomina/Web.Debug.config
+# ProyectoGraduacionNomina/Web.Release.config
+# ProyectoGraduacionNomina/Views/Web.config  <- no tiene credenciales
+
+# -------------------------------------------------------
+# ARTEFACTOS DE COMPILACIÓN
+# -------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# -------------------------------------------------------
+# VISUAL STUDIO
+# -------------------------------------------------------
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.csproj.user
+*.dtbcache.json
+
+# -------------------------------------------------------
+# NUGET
+# -------------------------------------------------------
+packages/
+*.nupkg
+!packages/repositories.config
+
+# -------------------------------------------------------
+# PUBLICACIÓN
+# -------------------------------------------------------
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp_proj
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+publish/
+PublishProfiles/
