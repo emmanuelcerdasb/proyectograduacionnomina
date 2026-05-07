@@ -73,6 +73,32 @@ namespace ProyectoGraduacionNomina.Controllers
         }
 
         // =====================================================
+        // GUARDAR NÓMINA
+        // =====================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GuardarNomina(int empleadoId, int mes, int anno)
+        {
+            try
+            {
+                DateTime fechaInicio = new DateTime(anno, mes, 1);
+                DateTime fechaFin    = fechaInicio.AddMonths(1).AddDays(-1);
+
+                var service   = new NominaService(_db);
+                var resultado = service.CalcularNominaEmpleado(empleadoId, fechaInicio, fechaFin);
+                service.GuardarNomina(resultado);
+
+                TempData["Success"] = $"Nómina de {resultado.NombreEmpleado} ({mes}/{anno}) guardada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("CalcularNomina");
+        }
+
+        // =====================================================
         // MÉTODOS AUXILIARES
         // =====================================================
         private void CargarEmpleados()

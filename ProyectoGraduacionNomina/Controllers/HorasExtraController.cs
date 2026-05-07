@@ -123,6 +123,56 @@ namespace ProyectoGraduacionNomina.Controllers
         }
 
         // =====================================================
+        // APROBAR SOLICITUD
+        // =====================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Jefe,Jefa,RRHH")]
+        public ActionResult Aprobar(int id)
+        {
+            if (Session["CredencialId"] == null)
+                return RedirectToAction("Login", "Account");
+
+            try
+            {
+                int credencialId = (int)Session["CredencialId"];
+                _service.AprobarSolicitud(id, credencialId);
+                TempData["Success"] = "Solicitud de horas extra aprobada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("SolicitudesPendientes");
+        }
+
+        // =====================================================
+        // RECHAZAR SOLICITUD
+        // =====================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Jefe,Jefa,RRHH")]
+        public ActionResult Rechazar(int id)
+        {
+            if (Session["CredencialId"] == null)
+                return RedirectToAction("Login", "Account");
+
+            try
+            {
+                int credencialId = (int)Session["CredencialId"];
+                _service.RechazarSolicitud(id, credencialId);
+                TempData["Success"] = "Solicitud de horas extra rechazada.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("SolicitudesPendientes");
+        }
+
+        // =====================================================
         // HELPERS PRIVADOS
         // =====================================================
         private void CargarClasesHoraExtra()

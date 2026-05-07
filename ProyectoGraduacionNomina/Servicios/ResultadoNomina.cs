@@ -49,9 +49,21 @@ namespace ProyectoGraduacionNomina.Servicios
         public decimal HorasExtraAprobadas { get; set; }
 
         // ===============================
-        // Totales
+        // Totales devengados
         // ===============================
         public decimal SalarioBruto { get; set; }
         public decimal TotalDevengado { get; set; }
+
+        // ===============================
+        // Deducciones
+        // ===============================
+        public decimal DeduccionCCSS { get; set; }
+        public decimal DeduccionRenta { get; set; }
+        public decimal TotalDeducciones { get; set; }
+
+        // ===============================
+        // Neto a pagar
+        // ===============================
+        public decimal SalarioNeto { get; set; }
     }
 }

@@ -17,6 +17,21 @@
             </small>
         </div>
 
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                <i class="bi bi-check-circle me-1"></i> @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <i class="bi bi-exclamation-triangle me-1"></i> @TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
         <table class="table w-100 mt-3">
             <thead>
                 <tr>
@@ -25,13 +40,14 @@
                     <th>Horas</th>
                     <th>Tipo</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @if (!Model.Any())
                 {
                     <tr>
-                        <td colspan="5" class="text-center text-muted">
+                        <td colspan="6" class="text-center text-muted">
                             No hay solicitudes pendientes.
                         </td>
                     </tr>
@@ -52,16 +68,37 @@
                             </td>
                             <td>@item.HoraExtra.fecha.ToShortDateString()</td>
                             <td>@item.HoraExtra.cantidad_horas</td>
-                            <td>@item.HoraExtra.ClaseHoraExtra.nombre
-                            <br/>
-                            <small class="text-muted">
-                                @item.HoraExtra.ClaseHoraExtra.porcentaje
-                            </small>
+                            <td>
+                                @item.HoraExtra.ClaseHoraExtra.nombre
+                                <br />
+                                <small class="text-muted">
+                                    @item.HoraExtra.ClaseHoraExtra.porcentaje%
+                                </small>
                             </td>
                             <td>
                                 <span class="badge bg-warning text-dark">
                                     @item.estado
                                 </span>
+                            </td>
+                            <td>
+                                @using (Html.BeginForm("Aprobar", "HorasExtra", FormMethod.Post, new { style = "display:inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@item.idSolicitudHorasExtra" />
+                                    <button type="submit" class="btn btn-success btn-sm"
+                                            onclick="return confirm('¿Aprobar esta solicitud de horas extra?')">
+                                        <i class="bi bi-check-lg"></i> Aprobar
+                                    </button>
+                                }
+                                @using (Html.BeginForm("Rechazar", "HorasExtra", FormMethod.Post, new { style = "display:inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@item.idSolicitudHorasExtra" />
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('¿Rechazar esta solicitud de horas extra?')">
+                                        <i class="bi bi-x-lg"></i> Rechazar
+                                    </button>
+                                }
                             </td>
                         </tr>
                     }

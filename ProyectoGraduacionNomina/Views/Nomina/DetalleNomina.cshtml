@@ -21,24 +21,26 @@
         <div class="p-3">
 
             <!-- ===============================
-                 INFORMACIÓN GENERAL
+                 INFORMACIÓN DEL EMPLEADO
                  =============================== -->
-            <h6 class="text-primary mb-3">Información General</h6>
+            <h6 class="text-primary mb-3">Empleado</h6>
 
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <strong>Empleado ID</strong><br />
-                    @Model.EmpleadoId
+                    <strong>Nombre</strong><br />
+                    @Model.NombreEmpleado
                 </div>
                 <div class="col-md-4">
-                    <strong>Periodo</strong><br />
-                    @Model.FechaInicio.ToString("dd/MM/yyyy")
-                    -
-                    @Model.FechaFin.ToString("dd/MM/yyyy")
+                    <strong>Cédula</strong><br />
+                    @Model.CedulaEmpleado
                 </div>
                 <div class="col-md-4">
-                    <strong>Mes / Año</strong><br />
-                    @Model.Mes / @Model.Anno
+                    <strong>Período</strong><br />
+                    @Model.FechaInicio.ToString("dd/MM/yyyy") — @Model.FechaFin.ToString("dd/MM/yyyy")
+                    <br />
+                    <small class="text-muted">
+                        @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Mes) @Model.Anno
+                    </small>
                 </div>
             </div>
 
@@ -47,7 +49,7 @@
             <!-- ===============================
                  SALARIOS BASE
                  =============================== -->
-            <h6 class="text-primary mb-3">Salario Base</h6>
+            <h6 class="text-primary mb-3">Parámetros Salariales</h6>
 
             <table class="table table-sm table-bordered">
                 <tr>
@@ -59,7 +61,7 @@
                     <td>₡ @Model.SalarioDiario.ToString("N2")</td>
                 </tr>
                 <tr>
-                    <th>Salario x Hora</th>
+                    <th>Salario por Hora</th>
                     <td>₡ @Model.SalarioPorHora.ToString("N2")</td>
                 </tr>
             </table>
@@ -67,48 +69,99 @@
             <!-- ===============================
                  ASISTENCIA
                  =============================== -->
-            <h6 class="text-primary mt-4 mb-3">Asistencia</h6>
+            <h6 class="text-primary mt-4 mb-3">Asistencia del Período</h6>
 
             <table class="table table-sm table-bordered">
                 <tr>
-                    <th>Días Laborados</th>
+                    <th>Días del período</th>
+                    <td>@Model.DiasLaborablesMes</td>
+                </tr>
+                <tr>
+                    <th>Días laborados</th>
                     <td>@Model.DiasLaborados</td>
                 </tr>
                 <tr>
-                    <th>Días de Incapacidad</th>
+                    <th>Días de incapacidad</th>
                     <td>@Model.DiasIncapacidad</td>
+                </tr>
+                <tr>
+                    <th>Días de ausencia</th>
+                    <td>@Model.DiasAusencia</td>
+                </tr>
+                <tr>
+                    <th>Horas extra aprobadas</th>
+                    <td>@Model.HorasExtraAprobadas h</td>
                 </tr>
             </table>
 
             <!-- ===============================
-                 MONTOS CALCULADOS
+                 PERCEPCIONES (DEVENGADO)
                  =============================== -->
-            <h6 class="text-primary mt-4 mb-3">Montos Calculados</h6>
+            <h6 class="text-primary mt-4 mb-3">Percepciones</h6>
 
             <table class="table table-sm table-bordered">
                 <tr>
-                    <th>Salario Base Devengado</th>
-                    <td>₡ @Model.MontoSalarioBase.ToString("N2")</td>
+                    <th>Salario base devengado</th>
+                    <td class="text-end">₡ @Model.MontoSalarioBase.ToString("N2")</td>
                 </tr>
                 <tr>
-                    <th>Pago por Incapacidades</th>
-                    <td>₡ @Model.MontoIncapacidades.ToString("N2")</td>
+                    <th>Pago por incapacidades</th>
+                    <td class="text-end">₡ @Model.MontoIncapacidades.ToString("N2")</td>
                 </tr>
                 <tr>
-                    <th>Pago por Horas Extra</th>
-                    <td>₡ @Model.MontoHorasExtra.ToString("N2")</td>
+                    <th>Pago por horas extra</th>
+                    <td class="text-end">₡ @Model.MontoHorasExtra.ToString("N2")</td>
+                </tr>
+                <tr class="table-light fw-bold">
+                    <th>Salario Bruto</th>
+                    <td class="text-end">₡ @Model.SalarioBruto.ToString("N2")</td>
                 </tr>
             </table>
 
             <!-- ===============================
-                 TOTAL
+                 DEDUCCIONES
                  =============================== -->
-            <div class="alert alert-info mt-4">
-                <h5 class="mb-0">
-                    Total Devengado:
-                    <strong>₡ @Model.TotalDevengado.ToString("N2")</strong>
-                </h5>
+            <h6 class="text-primary mt-4 mb-3">Deducciones</h6>
+
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>Seguridad Social (CCSS — aporte trabajador)</th>
+                    <td class="text-end text-danger">- ₡ @Model.DeduccionCCSS.ToString("N2")</td>
+                </tr>
+                <tr>
+                    <th>Impuesto sobre la renta</th>
+                    <td class="text-end text-danger">- ₡ @Model.DeduccionRenta.ToString("N2")</td>
+                </tr>
+                <tr class="table-light fw-bold">
+                    <th>Total deducciones</th>
+                    <td class="text-end text-danger">- ₡ @Model.TotalDeducciones.ToString("N2")</td>
+                </tr>
+            </table>
+
+            <!-- ===============================
+                 NETO A PAGAR
+                 =============================== -->
+            <div class="alert alert-success mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0">Salario Neto a Pagar</h5>
+                        <small class="text-muted">Salario bruto menos deducciones</small>
+                    </div>
+                    <h4 class="mb-0">
+                        <strong>₡ @Model.SalarioNeto.ToString("N2")</strong>
+                    </h4>
+                </div>
             </div>
+
+            @if (Model.DeduccionCCSS == 0 && Model.DeduccionRenta == 0)
+            {
+                <div class="alert alert-warning mt-2">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Las deducciones muestran ₡0.00. Verificá que existan registros en las tablas
+                    <strong>AportesSeguridadSocial</strong> y <strong>TramosParametrosRenta</strong>
+                    para el año <strong>@Model.Anno</strong>.
+                </div>
+            }
 
             <!-- ===============================
                  ACCIONES
@@ -119,6 +172,19 @@
                     <i class="bi bi-arrow-left-circle me-1"></i>
                     Nuevo cálculo
                 </a>
+
+                @using (Html.BeginForm("GuardarNomina", "Nomina", FormMethod.Post, new { style = "display:inline" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="empleadoId" value="@Model.EmpleadoId" />
+                    <input type="hidden" name="mes"        value="@Model.Mes" />
+                    <input type="hidden" name="anno"       value="@Model.Anno" />
+                    <button type="submit" class="btn btn-success ms-2"
+                            onclick="return confirm('¿Guardar esta nómina en la base de datos?')">
+                        <i class="bi bi-floppy me-1"></i>
+                        Guardar nómina
+                    </button>
+                }
 
                 <button class="btn btn-danger ms-2" disabled>
                     <i class="bi bi-file-earmark-pdf me-1"></i>
