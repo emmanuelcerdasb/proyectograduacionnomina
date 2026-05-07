@@ -1,0 +1,169 @@
+@model ProyectoGraduacionNomina.Vacaciones
+
+@{
+    ViewBag.Title = "Detalle Vacaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+
+        <div class="card-header">
+            <h3 class="mb-1">
+                <i class="bi bi-sun me-2"></i>
+                Detalle de Solicitud de Vacaciones
+            </h3>
+            <small class="text-muted">Solicitud #@Model.idVacaciones &mdash; @Model.fecha_solicitud.ToString("dd/MM/yyyy HH:mm")</small>
+        </div>
+
+        <div class="p-4">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle me-1"></i> @TempData["Success"]
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle me-1"></i> @TempData["Error"]
+                </div>
+            }
+
+            @* ---- Empleado ---- *@
+            <h6 class="text-primary mb-2">Empleado</h6>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <small class="text-muted d-block">Nombre</small>
+                    <strong>@Model.Empleado.Persona.nombre @Model.Empleado.Persona.apellido1 @Model.Empleado.Persona.apellido2</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Cedula</small>
+                    <strong>@Model.Empleado.Persona.cedula</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Puesto</small>
+                    <strong>@Model.Empleado.Puesto.nombre</strong>
+                </div>
+                <div class="col-md-2">
+                    <small class="text-muted d-block">Estado</small>
+                    @if (Model.estado == "Aprobado")
+                    {
+                        <span class="badge bg-success fs-6">@Model.estado</span>
+                    }
+                    else if (Model.estado == "Rechazado")
+                    {
+                        <span class="badge bg-danger fs-6">@Model.estado</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark fs-6">@Model.estado</span>
+                    }
+                </div>
+            </div>
+
+            @* ---- Periodo ---- *@
+            <h6 class="text-primary mb-2">Periodo de vacaciones</h6>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Fecha inicio</small>
+                    <strong>@Model.fecha_inicio.ToString("dd/MM/yyyy")</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Fecha fin</small>
+                    <strong>@Model.fecha_fin.ToString("dd/MM/yyyy")</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Dias habiles</small>
+                    <span class="badge bg-primary fs-6">@Model.dias_habiles dias</span>
+                </div>
+                @if (Model.fecha_aprobacion.HasValue)
+                {
+                    <div class="col-md-3">
+                        <small class="text-muted d-block">Fecha aprobacion/rechazo</small>
+                        <strong>@Model.fecha_aprobacion.Value.ToString("dd/MM/yyyy HH:mm")</strong>
+                    </div>
+                }
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.observaciones))
+            {
+                <div class="alert alert-light mb-4">
+                    <i class="bi bi-chat-text me-1"></i> <strong>Observaciones:</strong> @Model.observaciones
+                </div>
+            }
+
+            @* ---- Acciones (solo si esta Pendiente) ---- *@
+            @if (Model.estado == "Pendiente")
+            {
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        @using (Html.BeginForm("Aprobar", "Vacaciones", new { id = Model.idVacaciones }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="card border-success">
+                                <div class="card-body">
+                                    <h6 class="text-success mb-2"><i class="bi bi-check-circle me-1"></i> Aprobar solicitud</h6>
+                                    <input type="text" name="comentario" class="form-control mb-2"
+                                           placeholder="Comentario (opcional)" maxlength="300" />
+                                    <button type="submit" class="btn btn-success w-100"
+                                            onclick="return confirm('Aprobar esta solicitud de vacaciones?')">
+                                        Aprobar
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        @using (Html.BeginForm("Rechazar", "Vacaciones", new { id = Model.idVacaciones }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="card border-danger">
+                                <div class="card-body">
+                                    <h6 class="text-danger mb-2"><i class="bi bi-x-circle me-1"></i> Rechazar solicitud</h6>
+                                    <input type="text" name="comentario" class="form-control mb-2"
+                                           placeholder="Motivo del rechazo" maxlength="300" />
+                                    <button type="submit" class="btn btn-danger w-100"
+                                            onclick="return confirm('Rechazar esta solicitud de vacaciones?')">
+                                        Rechazar
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            @* ---- Historial ---- *@
+            @if (Model.HistorialVacaciones.Any())
+            {
+                <h6 class="text-primary mb-2">Historial</h6>
+                <table class="table table-sm mb-4">
+                    <thead>
+                        <tr>
+                            <th>Accion</th>
+                            <th>Comentario</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var h in Model.HistorialVacaciones.OrderByDescending(x => x.fecha))
+                        {
+                            <tr>
+                                <td><span class="badge bg-secondary">@h.accion</span></td>
+                                <td>@h.comentario</td>
+                                <td><small>@h.fecha.ToString("dd/MM/yyyy HH:mm")</small></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            <a href="@Url.Action("Index", "Vacaciones")" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Volver
+            </a>
+
+        </div>
+    </div>
+</div>
