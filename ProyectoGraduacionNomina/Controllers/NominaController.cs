@@ -12,6 +12,39 @@ namespace ProyectoGraduacionNomina.Controllers
         private BD_NominaEntities _db = new BD_NominaEntities();
 
         // =====================================================
+        // ÍNDICE DE NÓMINAS GUARDADAS
+        // =====================================================
+        public ActionResult Index()
+        {
+            var nominas = _db.Nomina
+                .Include(n => n.DetalleNomina)
+                .OrderByDescending(n => n.anio)
+                .ThenByDescending(n => n.mes)
+                .ToList();
+
+            return View(nominas);
+        }
+
+        // =====================================================
+        // DETALLE DE UN PERÍODO DE NÓMINA
+        // =====================================================
+        public ActionResult DetalleNominaPeriodo(int id)
+        {
+            var nomina = _db.Nomina
+                .Include(n => n.DetalleNomina.Select(d => d.Empleado.Persona))
+                .Include(n => n.DetalleNomina.Select(d => d.Empleado.Puesto))
+                .FirstOrDefault(n => n.idNomina == id);
+
+            if (nomina == null)
+            {
+                TempData["Error"] = "Nomina no encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            return View(nomina);
+        }
+
+        // =====================================================
         // MENÚ / FORMULARIO DE CÁLCULO DE NÓMINA
         // =====================================================
         [HttpGet]

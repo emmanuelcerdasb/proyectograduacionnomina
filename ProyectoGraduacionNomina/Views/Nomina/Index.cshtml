@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ProyectoGraduacionNomina.Nomina>
+
+@{
+    ViewBag.Title = "Nominas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="table-card">
+
+        <div class="card-header">
+            <h3 class="mb-1">
+                <i class="bi bi-receipt me-2"></i>
+                Nominas
+            </h3>
+            <small class="text-muted">Periodos de nomina registrados en el sistema</small>
+        </div>
+
+        <div class="p-3">
+
+            <div class="d-flex justify-content-end mb-3">
+                <a href="@Url.Action("CalcularNomina", "Nomina")" class="btn btn-primary-custom">
+                    <i class="bi bi-calculator me-1"></i> Nuevo calculo
+                </a>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-1"></i>
+                    No hay nominas guardadas. Usa <strong>Nuevo calculo</strong> para generar la primera.
+                </div>
+            }
+            else
+            {
+                <table class="table w-100">
+                    <thead>
+                        <tr>
+                            <th>Periodo</th>
+                            <th>Estado</th>
+                            <th>Empleados calculados</th>
+                            <th>Fecha creacion</th>
+                            <th>Fecha cierre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var nomina in Model)
+                        {
+                            string[] meses = { "", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                                               "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+                            string mesNombre = meses[nomina.mes];
+
+                            <tr>
+                                <td><strong>@mesNombre @nomina.anio</strong></td>
+                                <td>
+                                    @if (nomina.estado == "Abierta")
+                                    {
+                                        <span class="badge bg-success">@nomina.estado</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">@nomina.estado</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">@nomina.DetalleNomina.Count empleado(s)</span>
+                                </td>
+                                <td>@nomina.fecha_creacion.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    @if (nomina.fecha_cierre.HasValue)
+                                    {
+                                        @nomina.fecha_cierre.Value.ToString("dd/MM/yyyy")
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("DetalleNominaPeriodo", "Nomina", new { id = nomina.idNomina })"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye me-1"></i> Ver detalle
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+
+</div>
