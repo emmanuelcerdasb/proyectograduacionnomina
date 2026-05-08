@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ProyectoGraduacionNomina.Helpers;
+using ProyectoGraduacionNomina.Servicios;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using ProyectoGraduacionNomina.Servicios;
 
 namespace ProyectoGraduacionNomina.Controllers
 {
@@ -10,6 +11,39 @@ namespace ProyectoGraduacionNomina.Controllers
     public class NominaController : Controller
     {
         private BD_NominaEntities _db = new BD_NominaEntities();
+
+        // =====================================================
+        // ÍNDICE DE NÓMINAS GUARDADAS
+        // =====================================================
+        public ActionResult Index()
+        {
+            var nominas = _db.Nomina
+                .Include(n => n.DetalleNomina)
+                .OrderByDescending(n => n.anio)
+                .ThenByDescending(n => n.mes)
+                .ToList();
+
+            return View(nominas);
+        }
+
+        // =====================================================
+        // DETALLE DE UN PERÍODO DE NÓMINA
+        // =====================================================
+        public ActionResult DetalleNominaPeriodo(int id)
+        {
+            var nomina = _db.Nomina
+                .Include(n => n.DetalleNomina.Select(d => d.Empleado.Persona))
+                .Include(n => n.DetalleNomina.Select(d => d.Empleado.Puesto))
+                .FirstOrDefault(n => n.idNomina == id);
+
+            if (nomina == null)
+            {
+                TempData["Error"] = "Nomina no encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            return View(nomina);
+        }
 
         // =====================================================
         // MENÚ / FORMULARIO DE CÁLCULO DE NÓMINA
@@ -70,6 +104,38 @@ namespace ProyectoGraduacionNomina.Controllers
                 TempData["Error"] = ex.Message;
                 return View();
             }
+        }
+
+        // =====================================================
+        // GUARDAR NÓMINA
+        // =====================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GuardarNomina(int empleadoId, int mes, int anno)
+        {
+            try
+            {
+                DateTime fechaInicio = new DateTime(anno, mes, 1);
+                DateTime fechaFin    = fechaInicio.AddMonths(1).AddDays(-1);
+
+                var service   = new NominaService(_db);
+                var resultado = service.CalcularNominaEmpleado(empleadoId, fechaInicio, fechaFin);
+                service.GuardarNomina(resultado);
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "GUARDAR NOMINA",
+                        $"Nomina guardada: {resultado.NombreEmpleado} | Periodo {mes}/{anno} | Neto: {resultado.SalarioNeto:N2}",
+                        this.HttpContext);
+
+                TempData["Success"] = $"Nómina de {resultado.NombreEmpleado} ({mes}/{anno}) guardada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("CalcularNomina");
         }
 
         // =====================================================

@@ -1,0 +1,191 @@
+@using ProyectoGraduacionNomina
+@{
+    ViewBag.Title = "Perfil del Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var emp      = ViewBag.Empleado      as Empleado;
+    var nominas  = ViewBag.Nominas       as IList<DetalleNomina>;
+    var vacs     = ViewBag.Vacaciones    as IList<Vacaciones>;
+    var evals    = ViewBag.Evaluaciones  as IList<EvaluacionPersonal>;
+    var liqs     = ViewBag.Liquidaciones as IList<Liquidacion>;
+    var agus     = ViewBag.Aguinaldos    as IList<Aguinaldo>;
+    var horas    = ViewBag.HorasExtra    as IList<HoraExtra>;
+    string[] meses = { "", "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                        "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" };
+}
+
+<div class="container mt-4">
+
+    @* ---- Datos del empleado ---- *@
+    <div class="table-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>@emp.Persona.nombre @emp.Persona.apellido1 @emp.Persona.apellido2</h4>
+                <small class="text-muted">Cedula: @emp.Persona.cedula &nbsp;|&nbsp; Ingreso: @emp.fecha_ingreso.ToString("dd/MM/yyyy")</small>
+            </div>
+            @if (emp.estado == "Activo")
+            { <span class="badge bg-success fs-6">Activo</span> }
+            else
+            { <span class="badge bg-secondary fs-6">@emp.estado</span> }
+        </div>
+        <div class="p-3 row g-3">
+            <div class="col-md-4">
+                <small class="text-muted d-block">Puesto</small>
+                <strong>@emp.Puesto.nombre</strong>
+            </div>
+            <div class="col-md-4">
+                <small class="text-muted d-block">Departamento</small>
+                <strong>@emp.Puesto.Departamento.nombre</strong>
+            </div>
+            <div class="col-md-4">
+                <small class="text-muted d-block">Salario base</small>
+                <strong>&#x20A1;@emp.Puesto.salario_base.ToString("N2")</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+
+        @* ---- Nominas ---- *@
+        <div class="col-md-6">
+            <div class="table-card h-100">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-receipt me-1"></i> Nominas recientes</h6></div>
+                <div class="p-2">
+                    @if (!nominas.Any())
+                    { <p class="text-muted p-2 mb-0">Sin nominas registradas.</p> }
+                    else
+                    {
+                        <table class="table table-sm mb-0">
+                            <thead><tr><th>Periodo</th><th class="text-end">Salario bruto</th><th class="text-end">Neto</th></tr></thead>
+                            <tbody>
+                                @foreach (var n in nominas)
+                                {
+                                    <tr>
+                                        <td>@meses[n.Nomina.mes] @n.Nomina.anio</td>
+                                        <td class="text-end">&#x20A1;@n.salario_bruto.ToString("N2")</td>
+                                        <td class="text-end fw-bold">&#x20A1;@n.neto_pagar.ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @* ---- Evaluaciones ---- *@
+        <div class="col-md-6">
+            <div class="table-card h-100">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-star me-1"></i> Evaluaciones</h6></div>
+                <div class="p-2">
+                    @if (!evals.Any())
+                    { <p class="text-muted p-2 mb-0">Sin evaluaciones registradas.</p> }
+                    else
+                    {
+                        <table class="table table-sm mb-0">
+                            <thead><tr><th>Periodo</th><th class="text-center">Nota</th><th class="text-center">Calificacion</th></tr></thead>
+                            <tbody>
+                                @foreach (var e in evals)
+                                {
+                                    string bc = e.calificacion == "Excelente" ? "bg-success"
+                                              : e.calificacion == "Bueno"     ? "bg-primary"
+                                              : e.calificacion == "Regular"   ? "bg-warning text-dark"
+                                              : "bg-danger";
+                                    <tr>
+                                        <td>@(e.semestre == 1 ? "Ene-Jun" : "Jul-Dic") @e.anio</td>
+                                        <td class="text-center fw-bold">@e.nota_final.ToString("N2")</td>
+                                        <td class="text-center"><span class="badge @bc">@e.calificacion</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @* ---- Vacaciones ---- *@
+        <div class="col-md-6">
+            <div class="table-card h-100">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-sun me-1"></i> Vacaciones</h6></div>
+                <div class="p-2">
+                    @if (!vacs.Any())
+                    { <p class="text-muted p-2 mb-0">Sin vacaciones registradas.</p> }
+                    else
+                    {
+                        <table class="table table-sm mb-0">
+                            <thead><tr><th>Inicio</th><th>Fin</th><th class="text-center">Dias</th><th class="text-center">Estado</th></tr></thead>
+                            <tbody>
+                                @foreach (var v in vacs)
+                                {
+                                    string bc = v.estado == "Aprobado" ? "bg-success" : v.estado == "Rechazado" ? "bg-danger" : "bg-warning text-dark";
+                                    <tr>
+                                        <td>@v.fecha_inicio.ToString("dd/MM/yy")</td>
+                                        <td>@v.fecha_fin.ToString("dd/MM/yy")</td>
+                                        <td class="text-center">@v.dias_habiles</td>
+                                        <td class="text-center"><span class="badge @bc">@v.estado</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @* ---- Aguinaldos y Liquidaciones ---- *@
+        <div class="col-md-6">
+            <div class="table-card mb-3">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-gift me-1"></i> Aguinaldos</h6></div>
+                <div class="p-2">
+                    @if (!agus.Any())
+                    { <p class="text-muted p-2 mb-0">Sin aguinaldos registrados.</p> }
+                    else
+                    {
+                        <table class="table table-sm mb-0">
+                            <thead><tr><th>Anio</th><th class="text-end">Monto</th><th>Estado</th></tr></thead>
+                            <tbody>
+                                @foreach (var a in agus)
+                                {
+                                    <tr>
+                                        <td>@a.anio</td>
+                                        <td class="text-end">&#x20A1;@a.monto.ToString("N2")</td>
+                                        <td><span class="badge bg-secondary">@a.estado</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            @if (liqs.Any())
+            {
+                <div class="table-card">
+                    <div class="card-header"><h6 class="mb-0"><i class="bi bi-person-x me-1"></i> Liquidaciones</h6></div>
+                    <div class="p-2">
+                        <table class="table table-sm mb-0">
+                            <thead><tr><th>Tipo</th><th>Fecha</th><th class="text-end">Neto</th></tr></thead>
+                            <tbody>
+                                @foreach (var l in liqs)
+                                {
+                                    <tr>
+                                        <td>@l.TipoLiquidacion.nombre</td>
+                                        <td>@l.fecha.ToString("dd/MM/yyyy")</td>
+                                        <td class="text-end fw-bold">&#x20A1;@l.neto_pagar.ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+
+    <div class="mt-3">
+        <a href="@Url.Action("PerfilEmpleado", "Consulta")" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Nueva consulta
+        </a>
+    </div>
+
+</div>

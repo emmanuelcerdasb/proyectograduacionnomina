@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -187,13 +188,16 @@ namespace ProyectoGraduacionNomina.Controllers
         // ===============================
         // RESET CONTRASEÑA (ADMIN)
         // ===============================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(int id)
         {
             var credencial = await db.Credencial.FindAsync(id);
             if (credencial == null)
                 return HttpNotFound();
 
-            credencial.contrasena = PasswordHelper.HashPassword("Temporal123!");
+            string tempPass = ConfigurationManager.AppSettings["TempPassword"] ?? "Temporal123!";
+            credencial.contrasena = PasswordHelper.HashPassword(tempPass);
             credencial.requiere_cambio = true;
             credencial.fecha_ultimo_cambio = null;
 
@@ -209,6 +213,64 @@ namespace ProyectoGraduacionNomina.Controllers
 
             TempData["Success"] = "Contraseña reiniciada.";
             return RedirectToAction("Index");
+        }
+
+        // ===============================
+        // CAMBIAR CONTRASEÑA (usuario actual)
+        // ===============================
+        [AllowAnonymous]
+        public ActionResult CambiarContrasena()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CambiarContrasena(string contrasenaActual, string nuevaContrasena)
+        {
+            if (string.IsNullOrWhiteSpace(contrasenaActual) || string.IsNullOrWhiteSpace(nuevaContrasena))
+            {
+                ViewBag.Error = "Debe completar todos los campos.";
+                return View();
+            }
+
+            if (nuevaContrasena.Length < 8)
+            {
+                ViewBag.Error = "La nueva contraseña debe tener al menos 8 caracteres.";
+                return View();
+            }
+
+            if (Session["CredencialId"] == null)
+                return RedirectToAction("Login", "Account");
+
+            int credId = (int)Session["CredencialId"];
+            var cred = await db.Credencial.FindAsync(credId);
+            if (cred == null)
+                return HttpNotFound();
+
+            if (!PasswordHelper.VerifyPassword(contrasenaActual, cred.contrasena))
+            {
+                ViewBag.Error = "La contraseña actual no es correcta.";
+                return View();
+            }
+
+            cred.contrasena          = PasswordHelper.HashPassword(nuevaContrasena);
+            cred.requiere_cambio     = false;
+            cred.fecha_ultimo_cambio = DateTime.Now;
+
+            await db.SaveChangesAsync();
+
+            BitacoraHelper.Registrar(
+                db,
+                credId,
+                "CAMBIO CONTRASEÑA",
+                $"El usuario cambió su contraseña.",
+                this.HttpContext
+            );
+
+            TempData["Success"] = "Contraseña actualizada correctamente.";
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

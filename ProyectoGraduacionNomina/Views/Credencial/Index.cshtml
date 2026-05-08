@@ -5,7 +5,11 @@
 }
 
 <div class="container mt-4">
-    @if (TempData["Mensaje"] != null)
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    else if (TempData["Mensaje"] != null)
     {
         <div class="alert alert-success">@TempData["Mensaje"]</div>
     }
@@ -60,12 +64,17 @@
 
                         @Html.Partial("_RowActions")
 
-                        <!-- Botón adicional para cambiar contraseña -->
-                        <a href="@Url.Action("CambiarContrasena", "Credencial", new { id = item.idCredencial })"
-                           class="btn btn-sm btn-secondary icon-btn"
-                           title="Cambiar contraseña">
-                            <i class="bi bi-key"></i>
-                        </a>
+                        <!-- Resetear contraseña (POST seguro con AntiForgeryToken) -->
+                        @using (Html.BeginForm("ResetPassword", "Credencial", new { id = item.idCredencial }, FormMethod.Post, new { style = "display:inline" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="btn btn-sm btn-secondary icon-btn"
+                                    title="Resetear contraseña"
+                                    onclick="return confirm('¿Resetear contraseña de @item.usuario a la contraseña temporal?')">
+                                <i class="bi bi-key"></i>
+                            </button>
+                        }
                     </td>
                 </tr>
             }

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ProyectoGraduacionNomina.Aguinaldo>
+
+@{
+    ViewBag.Title = "Aguinaldo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+        <div class="card-header">
+            <h3 class="mb-1"><i class="bi bi-gift me-2"></i>Aguinaldo</h3>
+            <small class="text-muted">Aguinaldos calculados y guardados</small>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                <i class="bi bi-check-circle me-1"></i> @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <i class="bi bi-exclamation-triangle me-1"></i> @TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <div class="p-3">
+            <div class="d-flex justify-content-end mb-3">
+                <a href="@Url.Action("Calcular", "Aguinaldo")" class="btn btn-primary-custom">
+                    <i class="bi bi-calculator me-1"></i> Calcular aguinaldo
+                </a>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-1"></i>
+                    No hay aguinaldos guardados. Usa <strong>Calcular aguinaldo</strong> para generar el primero.
+                </div>
+            }
+            else
+            {
+                <table class="table w-100">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Anio</th>
+                            <th class="text-end">Monto</th>
+                            <th>Fecha calculo</th>
+                            <th>Fecha pago</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ag in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @ag.Empleado.Persona.nombre @ag.Empleado.Persona.apellido1 @ag.Empleado.Persona.apellido2
+                                    <br /><small class="text-muted">@ag.Empleado.Persona.cedula</small>
+                                </td>
+                                <td>@ag.anio</td>
+                                <td class="text-end fw-bold">@ag.monto.ToString("N2")</td>
+                                <td>@ag.fecha_calculo.ToString("dd/MM/yyyy")</td>
+                                <td>@ag.fecha_pago.ToString("dd/MM/yyyy")</td>
+                                <td><span class="badge bg-success">@ag.estado</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

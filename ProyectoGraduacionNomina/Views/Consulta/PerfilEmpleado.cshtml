@@ -1,0 +1,39 @@
+@{
+    ViewBag.Title = "Perfil del Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+        <div class="card-header">
+            <h3 class="mb-1"><i class="bi bi-person-badge me-2"></i>Consulta de Perfil del Empleado</h3>
+            <small class="text-muted">Historial consolidado por colaborador</small>
+        </div>
+        <div class="p-4">
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger"><i class="bi bi-exclamation-circle me-1"></i> @TempData["Error"]</div>
+            }
+
+            @using (Html.BeginForm("PerfilEmpleado", "Consulta", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Empleado</label>
+                        @Html.DropDownList("empleadoId",
+                            ViewBag.EmpleadoId as IEnumerable<SelectListItem>,
+                            "-- Seleccione un empleado --",
+                            new { @class = "form-select" })
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-search me-1"></i> Consultar
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

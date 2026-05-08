@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using ProyectoGraduacionNomina;
+using ProyectoGraduacionNomina.Helpers;
 
 namespace ProyectoGraduacionNomina.Controllers
 {
@@ -109,6 +110,12 @@ namespace ProyectoGraduacionNomina.Controllers
             // SINCRONIZACIÓN MARCACIÓN → ASISTENCIA
             SincronizarAsistencia(empId.Value, registro.fecha);
             await db.SaveChangesAsync();
+
+            if (Session["CredencialId"] != null)
+                BitacoraHelper.Registrar(db, (int)Session["CredencialId"],
+                    $"MARCACION {tipo.ToUpper()}",
+                    $"Empleado ID {empId.Value} marcó {tipo} el {ahora:dd/MM/yyyy} a las {ahora:HH:mm:ss}.",
+                    this.HttpContext);
 
             TempData["Success"] = $"Marcación de {tipo} registrada correctamente.";
             return RedirectToAction("Marcar");

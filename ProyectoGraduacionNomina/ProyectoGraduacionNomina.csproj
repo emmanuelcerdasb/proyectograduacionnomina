@@ -166,6 +166,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\HorarioSemanalController.cs" />
+    <Compile Include="Controllers\AguinaldoController.cs" />
+    <Compile Include="Controllers\EvaluacionController.cs" />
+    <Compile Include="Controllers\LiquidacionController.cs" />
+    <Compile Include="Controllers\VacacionesController.cs" />
     <Compile Include="Controllers\HorasExtraController.cs" />
     <Compile Include="Controllers\IncapacidadController.cs" />
     <Compile Include="Controllers\JornadaController.cs" />
@@ -179,6 +183,8 @@
     <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
+    <Compile Include="Controllers\NotificacionController.cs" />
+    <Compile Include="Controllers\TipoLiquidacionController.cs" />
     <Compile Include="Credencial.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -204,6 +210,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoHorario.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EvaluacionPersonal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Feriado.cs">
@@ -289,9 +298,13 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Servicios\AsistenciaService.cs" />
+    <Compile Include="Servicios\AguinaldoService.cs" />
+    <Compile Include="Servicios\LiquidacionService.cs" />
+    <Compile Include="Servicios\ResultadoLiquidacion.cs" />
     <Compile Include="Servicios\HorasExtraService.cs" />
     <Compile Include="Servicios\NominaService.cs" />
     <Compile Include="Servicios\ResultadoAsistenciaDiaria.cs" />
+    <Compile Include="Servicios\ResultadoAguinaldo.cs" />
     <Compile Include="Servicios\ResultadoNomina.cs" />
     <Compile Include="Servicios\ResumenAsistenciaMensual.cs" />
     <Compile Include="SesionUsuario.cs">
@@ -451,6 +464,12 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Bitacora\Index.cshtml" />
     <Content Include="Views\Seguridad\Index.cshtml" />
+    <Content Include="Views\Seguridad\SesionesActivas.cshtml" />
+    <Content Include="Views\Shared\_NotifBadge.cshtml" />
+    <Content Include="Views\Shared\_NotifCount.cshtml" />
+    <Content Include="Views\TipoLiquidacion\Index.cshtml" />
+    <Content Include="Views\TipoLiquidacion\Crear.cshtml" />
+    <Content Include="Views\TipoLiquidacion\Editar.cshtml" />
     <Content Include="Views\Asistencia\ReporteEmpleado.cshtml" />
     <Content Include="Views\Asistencia\ResumenMensual.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />

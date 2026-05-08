@@ -1,0 +1,67 @@
+@model ProyectoGraduacionNomina.Nomina
+
+@{
+    ViewBag.Title = "Reporte Nomina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] meses = { "", "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                        "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" };
+    var detalles = Model.DetalleNomina.OrderBy(d => d.Empleado.Persona.apellido1).ToList();
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="mb-0"><i class="bi bi-receipt me-2"></i>Nomina &mdash; @meses[Model.mes] @Model.anio</h3>
+                <small class="text-muted">@detalles.Count empleado(s) &nbsp;|&nbsp; Estado: @Model.estado</small>
+            </div>
+            <span class="badge @(Model.estado == "Abierta" ? "bg-success" : "bg-secondary") fs-6">@Model.estado</span>
+        </div>
+        <div class="p-3">
+
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th>Puesto</th>
+                        <th class="text-end">Salario bruto</th>
+                        <th class="text-end">Horas extra</th>
+                        <th class="text-end text-danger">Deducciones</th>
+                        <th class="text-end fw-bold">Neto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in detalles)
+                    {
+                        <tr>
+                            <td>@d.Empleado.Persona.nombre @d.Empleado.Persona.apellido1 @d.Empleado.Persona.apellido2</td>
+                            <td><small>@d.Empleado.Puesto.nombre</small></td>
+                            <td class="text-end">&#x20A1;@d.salario_bruto.ToString("N2")</td>
+                            <td class="text-end">&#x20A1;@d.monto_horas_extra.ToString("N2")</td>
+                            <td class="text-end text-danger">&#x20A1;@d.total_deducciones.ToString("N2")</td>
+                            <td class="text-end fw-bold">&#x20A1;@d.neto_pagar.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <th colspan="2">TOTALES</th>
+                        <th class="text-end">&#x20A1;@detalles.Sum(d => d.salario_bruto).ToString("N2")</th>
+                        <th class="text-end">&#x20A1;@detalles.Sum(d => d.monto_horas_extra).ToString("N2")</th>
+                        <th class="text-end text-danger">&#x20A1;@detalles.Sum(d => d.total_deducciones).ToString("N2")</th>
+                        <th class="text-end fw-bold">&#x20A1;@detalles.Sum(d => d.neto_pagar).ToString("N2")</th>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="d-flex gap-2 mt-2 btn-no-print">
+                <a href="@Url.Action("NominaPeriodo","Reportes")" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i> Nuevo reporte
+                </a>
+                <button onclick="window.print()" class="btn btn-outline-dark">
+                    <i class="bi bi-printer me-1"></i> Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

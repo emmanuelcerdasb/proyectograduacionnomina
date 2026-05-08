@@ -93,6 +93,9 @@
             </small>
         </div>
 
+        <div class="d-flex justify-content-between align-items-center px-3 pt-3">
+            <small class="text-muted">@ViewBag.TotalRegistros registro(s) — Página @ViewBag.PaginaActual de @ViewBag.TotalPaginas</small>
+        </div>
         <table class="table w-100 mt-3">
             <thead>
                 <tr>
@@ -154,6 +157,42 @@
                 }
             </tbody>
         </table>
+
+        @{
+            int paginaActual  = (int)(ViewBag.PaginaActual ?? 1);
+            int totalPaginas  = (int)(ViewBag.TotalPaginas ?? 1);
+            string fi  = ViewBag.FechaInicio ?? "";
+            string ff  = ViewBag.FechaFin    ?? "";
+            string ac  = ViewBag.AccionFiltro ?? "";
+            string ro  = ViewBag.RolFiltro    ?? "";
+
+            Func<int, string> pageUrl = p =>
+                Url.Action("Index", "Bitacora", new {
+                    pagina = p,
+                    fechaInicio = fi, fechaFin = ff,
+                    accion = ac, rol = ro
+                });
+        }
+
+        @if (totalPaginas > 1)
+        {
+            <nav class="d-flex justify-content-center my-3">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item @(paginaActual == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@pageUrl(paginaActual - 1)">&#8249;</a>
+                    </li>
+                    @for (int i = Math.Max(1, paginaActual - 2); i <= Math.Min(totalPaginas, paginaActual + 2); i++)
+                    {
+                        <li class="page-item @(i == paginaActual ? "active" : "")">
+                            <a class="page-link" href="@pageUrl(i)">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(paginaActual == totalPaginas ? "disabled" : "")">
+                        <a class="page-link" href="@pageUrl(paginaActual + 1)">&#8250;</a>
+                    </li>
+                </ul>
+            </nav>
+        }
     </div>
 
 </div>

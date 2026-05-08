@@ -50,6 +50,13 @@ namespace ProyectoGraduacionNomina.Controllers
                 return RedirectToAction("Login");
             }
 
+            // Migración automática de hash SHA256 legado → PBKDF2
+            if (PasswordHelper.IsLegacyHash(cred.contrasena))
+            {
+                cred.contrasena = PasswordHelper.HashPassword(contrasena);
+                await db.SaveChangesAsync();
+            }
+
             if (!cred.activo)
             {
                 TempData["Error"] = "La cuenta está inactiva.";

@@ -105,6 +105,8 @@
         <EntityTypeShape EntityType="BD_NominaModel.Asistencia" Width="2.375" PointX="12" PointY="1.5" />
         <AssociationConnector Association="BD_NominaModel.FK_Asistencia_Empleado" />
         <AssociationConnector Association="BD_NominaModel.FK_Empleado_HorarioSemanal" />
+        <EntityTypeShape EntityType="BD_NominaModel.EvaluacionPersonal" Width="1.5" PointX="12" PointY="60.75" />
+        <AssociationConnector Association="BD_NominaModel.FK__Evaluacio__Emple__76619304" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

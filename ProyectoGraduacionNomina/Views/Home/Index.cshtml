@@ -1,16 +1,190 @@
-﻿@{
+@{
     ViewBag.Title = "Inicio";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var totalEmpleados      = (int)(ViewBag.TotalEmpleadosActivos ?? 0);
+    var vacPendientes       = (int)(ViewBag.VacacionesPendientes  ?? 0);
+    var heExtraPendientes   = (int)(ViewBag.HorasExtraPendientes  ?? 0);
+    var nominaEmpleados     = (int)(ViewBag.NominaEmpleadosMes    ?? 0);
+    var nominaTotal         = (decimal)(ViewBag.NominaTotalMes    ?? 0m);
+    var aguinaldosAnio      = (int)(ViewBag.AguinaldosAnio        ?? 0);
+    var liquidacionesAnio   = (int)(ViewBag.LiquidacionesAnio     ?? 0);
+    var mesActual           = (string)(ViewBag.MesActual          ?? "");
+    var ultimasVacaciones   = ViewBag.UltimasVacaciones as IEnumerable<ProyectoGraduacionNomina.Vacaciones>
+                              ?? Enumerable.Empty<ProyectoGraduacionNomina.Vacaciones>();
 }
 
-<div class="container mt-3">
-    <div class="row mb-3">
-        <div class="col-12">
-            <h3 class="mb-0">Bienvenido, @User.Identity.Name</h3>
-            <small class="text-muted">Seleccione un módulo para comenzar</small>
+<div class="container-fluid mt-2">
+
+    <!-- Saludo -->
+    <div class="mb-4">
+        <h4 class="fw-semibold mb-0">Bienvenido, @User.Identity.Name</h4>
+        <small class="text-muted">@DateTime.Today.ToString("dddd, dd 'de' MMMM 'de' yyyy")</small>
+    </div>
+
+    <!-- ── KPI cards ── -->
+    <div class="row g-3 mb-4">
+
+        <!-- Empleados activos -->
+        <div class="col-6 col-md-3">
+            <div class="card h-100 border-0 shadow-sm p-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 p-3" style="background:#EFF6FF">
+                        <i class="bi bi-people-fill" style="font-size:1.5rem;color:#1D4ED8"></i>
+                    </div>
+                    <div>
+                        <div class="fs-3 fw-bold text-dark">@totalEmpleados</div>
+                        <div class="small text-muted">Empleados activos</div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Vacaciones pendientes -->
+        <div class="col-6 col-md-3">
+            <a href="@Url.Action("Index","Vacaciones")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm p-3 @(vacPendientes > 0 ? "border-start border-warning border-3" : "")">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 p-3" style="background:#FEF9C3">
+                            <i class="bi bi-calendar-check" style="font-size:1.5rem;color:#CA8A04"></i>
+                        </div>
+                        <div>
+                            <div class="fs-3 fw-bold @(vacPendientes > 0 ? "text-warning" : "text-dark")">@vacPendientes</div>
+                            <div class="small text-muted">Vacaciones pendientes</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Horas extra pendientes -->
+        <div class="col-6 col-md-3">
+            <a href="@Url.Action("SolicitudesPendientes","HorasExtra")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm p-3 @(heExtraPendientes > 0 ? "border-start border-danger border-3" : "")">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 p-3" style="background:#FEF2F2">
+                            <i class="bi bi-clock-history" style="font-size:1.5rem;color:#DC2626"></i>
+                        </div>
+                        <div>
+                            <div class="fs-3 fw-bold @(heExtraPendientes > 0 ? "text-danger" : "text-dark")">@heExtraPendientes</div>
+                            <div class="small text-muted">Horas extra por aprobar</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Nómina mes actual -->
+        <div class="col-6 col-md-3">
+            <a href="@Url.Action("CalcularNomina","Nomina")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm p-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 p-3" style="background:#F0FDF4">
+                            <i class="bi bi-receipt" style="font-size:1.5rem;color:#16A34A"></i>
+                        </div>
+                        <div>
+                            @if (nominaEmpleados > 0)
+                            {
+                                <div class="fs-6 fw-bold text-success">&#x20A1;@nominaTotal.ToString("N0")</div>
+                                <div class="small text-muted">Nómina @mesActual<br/>@nominaEmpleados empleado(s)</div>
+                            }
+                            else
+                            {
+                                <div class="fs-6 fw-semibold text-muted">Sin procesar</div>
+                                <div class="small text-muted">Nómina @mesActual</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </div>
 
+    <!-- ── Segunda fila: indicadores secundarios + tabla ── -->
+    <div class="row g-3">
+
+        <!-- Indicadores secundarios -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="fw-semibold mb-3 text-muted text-uppercase" style="font-size:.75rem;letter-spacing:.05em">
+                        Resumen del año @DateTime.Today.Year
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span><i class="bi bi-gift me-2 text-warning"></i>Aguinaldos calculados</span>
+                            <span class="badge bg-warning text-dark">@aguinaldosAnio</span>
+                        </li>
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span><i class="bi bi-file-earmark-text me-2 text-danger"></i>Liquidaciones</span>
+                            <span class="badge bg-danger">@liquidacionesAnio</span>
+                        </li>
+                        @if (User.IsInRole("Administrador") || User.IsInRole("RRHH"))
+                        {
+                            <li class="d-flex justify-content-between align-items-center py-2">
+                                <span><i class="bi bi-star me-2 text-primary"></i>Evaluaciones</span>
+                                <span class="badge bg-primary">@(ViewBag.EvaluacionesMes ?? 0)</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Últimas solicitudes de vacaciones -->
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-semibold mb-0 text-muted text-uppercase" style="font-size:.75rem;letter-spacing:.05em">
+                            Solicitudes de vacaciones pendientes
+                        </h6>
+                        <a href="@Url.Action("Index","Vacaciones")" class="btn btn-sm btn-outline-secondary">
+                            Ver todas <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+
+                    @if (!ultimasVacaciones.Any())
+                    {
+                        <div class="text-center text-muted py-3">
+                            <i class="bi bi-check-circle fs-4 d-block mb-2 text-success"></i>
+                            No hay solicitudes pendientes
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-sm mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Desde</th>
+                                    <th>Hasta</th>
+                                    <th class="text-center">Días</th>
+                                    <th class="text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var v in ultimasVacaciones)
+                                {
+                                    <tr>
+                                        <td>@v.Empleado.Persona.nombre @v.Empleado.Persona.apellido1</td>
+                                        <td>@v.fecha_inicio.ToString("dd/MM/yy")</td>
+                                        <td>@v.fecha_fin.ToString("dd/MM/yy")</td>
+                                        <td class="text-center"><span class="badge bg-secondary">@v.dias_habiles</span></td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Detalle","Vacaciones", new { id = v.idVacaciones })"
+                                               class="btn btn-sm btn-outline-primary">Revisar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
 
     </div>
 
+</div>

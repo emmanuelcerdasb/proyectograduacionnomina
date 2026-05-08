@@ -1,0 +1,88 @@
+﻿@model ProyectoGraduacionNomina.Nomina
+
+@{
+    string[] meses = { "", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                       "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+    ViewBag.Title = "Detalle Nomina " + meses[Model.mes] + " " + Model.anio;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+
+        <div class="card-header">
+            <h3 class="mb-1">
+                <i class="bi bi-receipt me-2"></i>
+                Nomina — @meses[Model.mes] @Model.anio
+            </h3>
+            <small class="text-muted">
+                Estado: <strong>@Model.estado</strong> &nbsp;|&nbsp;
+                Creada: @Model.fecha_creacion.ToString("dd/MM/yyyy HH:mm")
+            </small>
+        </div>
+
+        <div class="p-3">
+
+            @if (!Model.DetalleNomina.Any())
+            {
+                <div class="alert alert-info">No hay empleados calculados en este periodo.</div>
+            }
+            else
+            {
+                <table class="table w-100">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Puesto</th>
+                            <th class="text-end">Percepciones</th>
+                            <th class="text-end">Horas Extra</th>
+                            <th class="text-end">Deducciones</th>
+                            <th class="text-end">Neto a Pagar</th>
+                            <th>Fecha calculo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var det in Model.DetalleNomina)
+                        {
+                            <tr>
+                                <td>
+                                    @det.Empleado.Persona.nombre
+                                    @det.Empleado.Persona.apellido1
+                                    @det.Empleado.Persona.apellido2
+                                    <br />
+                                    <small class="text-muted">@det.Empleado.Persona.cedula</small>
+                                </td>
+                                <td>@det.Empleado.Puesto.nombre</td>
+                                <td class="text-end">@det.total_percepciones.ToString("N2")</td>
+                                <td class="text-end">@det.total_horas_extra.ToString("N2")</td>
+                                <td class="text-end text-danger">- @det.total_deducciones.ToString("N2")</td>
+                                <td class="text-end fw-bold">@det.salario_neto.ToString("N2")</td>
+                                <td>@det.fecha_calculo.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot class="table-light fw-bold">
+                        <tr>
+                            <td colspan="2">Totales</td>
+                            <td class="text-end">@Model.DetalleNomina.Sum(d => d.total_percepciones).ToString("N2")</td>
+                            <td class="text-end">@Model.DetalleNomina.Sum(d => d.total_horas_extra).ToString("N2")</td>
+                            <td class="text-end text-danger">- @Model.DetalleNomina.Sum(d => d.total_deducciones).ToString("N2")</td>
+                            <td class="text-end">@Model.DetalleNomina.Sum(d => d.salario_neto).ToString("N2")</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+
+            <div class="form-footer">
+                <a href="@Url.Action("Index", "Nomina")" class="btn btn-light cancel-btn">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Volver
+                </a>
+                <a href="@Url.Action("CalcularNomina", "Nomina")" class="btn btn-primary-custom ms-2">
+                    <i class="bi bi-calculator me-1"></i> Agregar empleado
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

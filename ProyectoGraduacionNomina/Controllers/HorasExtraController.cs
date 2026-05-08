@@ -1,4 +1,5 @@
-﻿using ProyectoGraduacionNomina.Servicios;
+﻿using ProyectoGraduacionNomina.Helpers;
+using ProyectoGraduacionNomina.Servicios;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -71,12 +72,21 @@ namespace ProyectoGraduacionNomina.Controllers
                     empleadoFinalId = empleadoId.Value;
                 }
 
+                if (cantidadHoras <= 0 || cantidadHoras > 12)
+                    throw new Exception("La cantidad de horas debe estar entre 0.5 y 12.");
+
                 _service.CrearSolicitudHorasExtra(
                     empleadoFinalId,
                     claseHoraExtraId,
                     fecha,
                     cantidadHoras
                 );
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "SOLICITAR HORAS EXTRA",
+                        $"Solicitud horas extra: empleadoId={empleadoFinalId} | Fecha={fecha:dd/MM/yyyy} | Horas={cantidadHoras}",
+                        this.HttpContext);
 
                 TempData["Success"] = "Solicitud de horas extra enviada correctamente.";
                 return RedirectToAction("Index");
@@ -98,7 +108,7 @@ namespace ProyectoGraduacionNomina.Controllers
         // =====================================================
         // MIS SOLICITUDES (COLABORADOR)
         // =====================================================
-        //[Authorize(Roles = "Colaborador")]
+        [Authorize(Roles = "Colaborador,Administrador,Jefe,Jefa,RRHH")]
         public ActionResult MisSolicitudes()
         {
             if (Session["EmpleadoId"] == null)
@@ -120,6 +130,68 @@ namespace ProyectoGraduacionNomina.Controllers
         {
             var solicitudes = _service.ObtenerSolicitudesPendientes();
             return View(solicitudes);
+        }
+
+        // =====================================================
+        // APROBAR SOLICITUD
+        // =====================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Jefe,Jefa,RRHH")]
+        public ActionResult Aprobar(int id)
+        {
+            if (Session["CredencialId"] == null)
+                return RedirectToAction("Login", "Account");
+
+            try
+            {
+                int credencialId = (int)Session["CredencialId"];
+                _service.AprobarSolicitud(id, credencialId);
+
+                BitacoraHelper.Registrar(_db, credencialId,
+                    "APROBAR HORAS EXTRA",
+                    $"Horas extra idHoraExtra={id} aprobadas.",
+                    this.HttpContext);
+
+                TempData["Success"] = "Solicitud de horas extra aprobada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("SolicitudesPendientes");
+        }
+
+        // =====================================================
+        // RECHAZAR SOLICITUD
+        // =====================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Jefe,Jefa,RRHH")]
+        public ActionResult Rechazar(int id)
+        {
+            if (Session["CredencialId"] == null)
+                return RedirectToAction("Login", "Account");
+
+            try
+            {
+                int credencialId = (int)Session["CredencialId"];
+                _service.RechazarSolicitud(id, credencialId);
+
+                BitacoraHelper.Registrar(_db, credencialId,
+                    "RECHAZAR HORAS EXTRA",
+                    $"Horas extra idHoraExtra={id} rechazadas.",
+                    this.HttpContext);
+
+                TempData["Success"] = "Solicitud de horas extra rechazada.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("SolicitudesPendientes");
         }
 
         // =====================================================

@@ -1,0 +1,172 @@
+@model ProyectoGraduacionNomina.Servicios.ResultadoLiquidacion
+
+@{
+    ViewBag.Title = "Detalle Liquidacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] mesesNombres = { "", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                               "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+
+        <div class="card-header">
+            <h3 class="mb-1">
+                <i class="bi bi-person-x me-2"></i>
+                Detalle Liquidacion
+            </h3>
+            <small class="text-muted">@Model.NombreTipoLiquidacion &mdash; @Model.FechaLiquidacion.ToString("dd/MM/yyyy")</small>
+        </div>
+
+        <div class="p-4">
+
+            @* ---- Empleado ---- *@
+            <h6 class="text-primary mb-2">Empleado</h6>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <small class="text-muted d-block">Nombre</small>
+                    <strong>@Model.NombreEmpleado</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Cedula</small>
+                    <strong>@Model.CedulaEmpleado</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Puesto</small>
+                    <strong>@Model.NombrePuesto</strong>
+                </div>
+                <div class="col-md-2">
+                    <small class="text-muted d-block">Tipo</small>
+                    <span class="badge bg-secondary">@Model.NombreTipoLiquidacion</span>
+                </div>
+            </div>
+
+            @* ---- Tiempo de servicio ---- *@
+            <h6 class="text-primary mb-2">Tiempo de servicio</h6>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Fecha ingreso</small>
+                    <strong>@Model.FechaIngreso.ToString("dd/MM/yyyy")</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Fecha liquidacion</small>
+                    <strong>@Model.FechaLiquidacion.ToString("dd/MM/yyyy")</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Tiempo trabajado</small>
+                    <strong>@Model.AniosServicio a&ntilde;os, @Model.MesesServicio meses</strong>
+                </div>
+                <div class="col-md-3">
+                    <small class="text-muted d-block">Salario de referencia</small>
+                    <strong>&#x20A1;@Model.SalarioMensual.ToString("N2")</strong>
+                    <small class="text-muted">&nbsp;(&#x20A1;@Model.SalarioDiario.ToString("N2")/dia)</small>
+                </div>
+            </div>
+
+            @* ---- Desglose de componentes ---- *@
+            <h6 class="text-primary mb-2">Desglose de la liquidacion</h6>
+            <table class="table mb-4">
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th class="text-center">Dias / Meses</th>
+                        <th class="text-end">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.AplicaPreaviso)
+                    {
+                        <tr>
+                            <td>Preaviso <small class="text-muted">(art. 28 CT)</small></td>
+                            <td class="text-center">@Model.DiasPreaviso dias</td>
+                            <td class="text-end">&#x20A1;@Model.MontoPreaviso.ToString("N2")</td>
+                        </tr>
+                    }
+                    @if (Model.AplicaCesantia)
+                    {
+                        <tr>
+                            <td>Cesantia <small class="text-muted">(art. 29 CT)</small></td>
+                            <td class="text-center">@Model.DiasCesantia dias</td>
+                            <td class="text-end">&#x20A1;@Model.MontoCesantia.ToString("N2")</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>Aguinaldo proporcional</td>
+                        <td class="text-center">@Model.MesesAguinaldo mes(es)</td>
+                        <td class="text-end">&#x20A1;@Model.MontoAguinaldoProporcional.ToString("N2")</td>
+                    </tr>
+                    <tr>
+                        <td>Vacaciones proporcionales <small class="text-muted">(art. 153 CT)</small></td>
+                        <td class="text-center">@Model.DiasVacacionesProporcionales.ToString("N1") dias</td>
+                        <td class="text-end">&#x20A1;@Model.MontoVacacionesProporcionales.ToString("N2")</td>
+                    </tr>
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <th colspan="2">Total percepciones</th>
+                        <th class="text-end">&#x20A1;@Model.TotalPercepciones.ToString("N2")</th>
+                    </tr>
+                    @if (Model.TotalDeducciones > 0)
+                    {
+                        <tr class="text-danger">
+                            <th colspan="2">Total deducciones</th>
+                            <th class="text-end">&#x20A1;@Model.TotalDeducciones.ToString("N2")</th>
+                        </tr>
+                    }
+                </tfoot>
+            </table>
+
+            @* ---- Neto a pagar ---- *@
+            <div class="alert alert-success d-flex justify-content-between align-items-center">
+                <div>
+                    <strong class="fs-5">Neto a pagar</strong>
+                    @if (!string.IsNullOrWhiteSpace(Model.Observaciones))
+                    {
+                        <br /><small>@Model.Observaciones</small>
+                    }
+                </div>
+                <span class="fs-4 fw-bold">&#x20A1;@Model.NetoPagar.ToString("N2")</span>
+            </div>
+
+            @* ---- Acciones ---- *@
+            <div class="d-flex justify-content-between mt-3 btn-no-print">
+                <div class="d-flex gap-2">
+                    <a href="@Url.Action("Calcular", "Liquidacion")" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Nuevo calculo
+                    </a>
+                    <button onclick="window.print()" class="btn btn-outline-dark">
+                        <i class="bi bi-printer me-1"></i> Imprimir
+                    </button>
+                </div>
+
+                @if (!Model.YaGuardado)
+                {
+                    using (Html.BeginForm("Guardar", "Liquidacion", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="empleadoId" value="@Model.EmpleadoId" />
+                        <input type="hidden" name="tipoLiquidacionId" value="@Model.TipoLiquidacionId" />
+                        <input type="hidden" name="fechaLiquidacion" value="@Model.FechaLiquidacion.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" name="observaciones" value="@Model.Observaciones" />
+                        <button type="submit" class="btn btn-primary-custom"
+                                onclick="return confirm('Guardar la liquidacion de @Model.NombreEmpleado?')">
+                            <i class="bi bi-floppy me-1"></i> Guardar liquidacion
+                        </button>
+                    }
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark p-2">
+                        <i class="bi bi-exclamation-triangle me-1"></i> Ya existe una liquidacion de este tipo para el empleado
+                    </span>
+                }
+            </div>
+            <div class="mt-2">
+                <button onclick="window.print()" class="btn btn-outline-dark btn-sm btn-no-print">
+                    <i class="bi bi-printer me-1"></i> Imprimir liquidacion
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

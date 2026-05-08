@@ -1,0 +1,93 @@
+@model IEnumerable<ProyectoGraduacionNomina.EvaluacionPersonal>
+
+@{
+    ViewBag.Title = "Evaluaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="table-card">
+
+        <div class="card-header">
+            <h3 class="mb-1">
+                <i class="bi bi-star me-2"></i>
+                Evaluaciones de Personal
+            </h3>
+            <small class="text-muted">Historial de evaluaciones de desempeno registradas</small>
+        </div>
+
+        <div class="p-3">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle me-1"></i> @TempData["Success"]
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle me-1"></i> @TempData["Error"]
+                </div>
+            }
+
+            <div class="d-flex justify-content-end mb-3">
+                <a href="@Url.Action("Crear", "Evaluacion")" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle me-1"></i> Nueva evaluacion
+                </a>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-1"></i>
+                    No hay evaluaciones registradas.
+                </div>
+            }
+            else
+            {
+                <table class="table w-100">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th class="text-center">Periodo</th>
+                            <th class="text-center">Nota final</th>
+                            <th class="text-center">Calificacion</th>
+                            <th>Evaluador</th>
+                            <th>Fecha</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ev in Model)
+                        {
+                            string badgeColor = ev.calificacion == "Excelente" ? "bg-success"
+                                             : ev.calificacion == "Bueno"      ? "bg-primary"
+                                             : ev.calificacion == "Regular"    ? "bg-warning text-dark"
+                                             : "bg-danger";
+                            <tr>
+                                <td>@ev.Empleado.Persona.nombre @ev.Empleado.Persona.apellido1 @ev.Empleado.Persona.apellido2</td>
+                                <td class="text-center">
+                                    @(ev.semestre == 1 ? "Ene-Jun" : "Jul-Dic") @ev.anio
+                                </td>
+                                <td class="text-center fw-bold">@ev.nota_final.ToString("N2")</td>
+                                <td class="text-center">
+                                    <span class="badge @badgeColor">@ev.calificacion</span>
+                                </td>
+                                <td>@ev.evaluador</td>
+                                <td><small>@ev.fecha_evaluacion.ToString("dd/MM/yyyy")</small></td>
+                                <td>
+                                    <a href="@Url.Action("Detalle", "Evaluacion", new { id = ev.idEvaluacion })"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+</div>
