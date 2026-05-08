@@ -28,13 +28,22 @@ cd ProyectoGraduacionNomina
 
 ### 2. Crear la base de datos
 
+**Opción A — Importar `.dacpac` (recomendado)**
+
 1. Abrir **SQL Server Management Studio**.
-2. Conectarse a la instancia local (ej: `TI-MARCO\SQLEXPRESS`).
-3. Ejecutar el script de estructura:
+2. Click derecho en **Databases** → **Deploy Data-tier Application...**
+3. Seleccionar el archivo:
    ```
-   docs/BD_Nomina_estructura.sql
+   docs/BD_Nomina.dacpac
    ```
-4. Ejecutar el script de datos iniciales:
+4. Nombre de BD: `BD_Nomina` → Next → Finish.
+5. La base de datos queda lista con estructura y datos iniciales incluidos.
+
+**Opción B — Scripts SQL manuales**
+
+1. Abrir **SQL Server Management Studio**.
+2. Conectarse a la instancia local (ej: `TU_SERVIDOR\SQLEXPRESS`).
+3. Crear la base de datos `BD_Nomina` y ejecutar el script de datos iniciales:
    ```
    docs/BD_Nomina_seed.sql
    ```
