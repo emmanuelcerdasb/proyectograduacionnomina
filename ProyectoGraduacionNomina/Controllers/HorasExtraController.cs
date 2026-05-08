@@ -72,6 +72,9 @@ namespace ProyectoGraduacionNomina.Controllers
                     empleadoFinalId = empleadoId.Value;
                 }
 
+                if (cantidadHoras <= 0 || cantidadHoras > 12)
+                    throw new Exception("La cantidad de horas debe estar entre 0.5 y 12.");
+
                 _service.CrearSolicitudHorasExtra(
                     empleadoFinalId,
                     claseHoraExtraId,

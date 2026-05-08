@@ -63,6 +63,13 @@ namespace ProyectoGraduacionNomina.Controllers
                 return View();
             }
 
+            decimal[] notas = { notaPuntualidad, notaCalidad, notaTrabajoEquipo, notaIniciativa, notaCumplimiento };
+            if (notas.Any(n => n < 1m || n > 10m))
+            {
+                TempData["Error"] = "Todas las notas deben estar entre 1 y 10.";
+                return View();
+            }
+
             if (!DateTime.TryParse(fechaEvaluacion, out DateTime fechaEval))
             {
                 TempData["Error"] = "Fecha de evaluacion invalida.";
