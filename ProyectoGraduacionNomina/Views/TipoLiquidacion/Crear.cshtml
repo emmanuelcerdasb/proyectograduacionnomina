@@ -1,0 +1,51 @@
+@{
+    ViewBag.Title = "Nuevo Tipo de Liquidación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="form-card">
+        <div class="form-header">
+            <h2><i class="bi bi-file-earmark-plus me-2"></i>Nuevo Tipo de Liquidación</h2>
+        </div>
+
+        @using (Html.BeginForm("Crear", "TipoLiquidacion", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Código <span class="text-danger">*</span></label>
+                        <input type="text" name="codigo" class="form-control modern-input"
+                               placeholder="Ej: REN" maxlength="10" required />
+                    </div>
+                    <div class="col-md-9">
+                        <label class="form-label fw-semibold">Nombre <span class="text-danger">*</span></label>
+                        <input type="text" name="nombre" class="form-control modern-input"
+                               placeholder="Ej: Renuncia voluntaria" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Descripción</label>
+                        <textarea name="descripcion" class="form-control modern-input" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" name="aplicaCesantia" value="true" id="chkCesantia" />
+                            <label class="form-check-label" for="chkCesantia">Aplica cesantía</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" name="aplicaPreaviso" value="true" id="chkPreaviso" />
+                            <label class="form-check-label" for="chkPreaviso">Aplica preaviso</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-footer">
+                <a href="@Url.Action("Index","TipoLiquidacion")" class="cancel-btn btn">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        }
+    </div>
+</div>

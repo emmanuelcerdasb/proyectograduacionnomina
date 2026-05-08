@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
+    <Compile Include="Controllers\TipoLiquidacionController.cs" />
     <Compile Include="Credencial.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -463,6 +464,9 @@
     <Content Include="Views\Bitacora\Index.cshtml" />
     <Content Include="Views\Seguridad\Index.cshtml" />
     <Content Include="Views\Seguridad\SesionesActivas.cshtml" />
+    <Content Include="Views\TipoLiquidacion\Index.cshtml" />
+    <Content Include="Views\TipoLiquidacion\Crear.cshtml" />
+    <Content Include="Views\TipoLiquidacion\Editar.cshtml" />
     <Content Include="Views\Asistencia\ReporteEmpleado.cshtml" />
     <Content Include="Views\Asistencia\ResumenMensual.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />

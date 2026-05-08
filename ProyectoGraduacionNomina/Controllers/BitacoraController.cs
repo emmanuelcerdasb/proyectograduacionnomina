@@ -18,30 +18,29 @@ namespace ProyectoGraduacionNomina.Controllers
         private BD_NominaEntities db = new BD_NominaEntities();
 
         // GET: Bitacora
+        private const int PorPagina = 50;
+
         public ActionResult Index(
             DateTime? fechaInicio,
             DateTime? fechaFin,
             string accion,
-            string rol)
+            string rol,
+            int pagina = 1)
         {
             var query = db.Bitacora
                 .Include(b => b.Credencial)
                 .Include(b => b.Credencial.Rol)
                 .AsQueryable();
 
-            // Filtro por fecha inicio
             if (fechaInicio.HasValue)
                 query = query.Where(b => b.fecha >= fechaInicio.Value);
 
-            // Filtro por fecha fin
             if (fechaFin.HasValue)
                 query = query.Where(b => b.fecha <= fechaFin.Value);
 
-            // Filtro por acción
             if (!string.IsNullOrEmpty(accion))
                 query = query.Where(b => b.accion == accion);
 
-            // Filtro por rol
             if (!string.IsNullOrEmpty(rol))
                 query = query.Where(b => b.Credencial.Rol.nombre == rol);
 
@@ -49,13 +48,29 @@ namespace ProyectoGraduacionNomina.Controllers
             ViewBag.Acciones = new SelectList(
                 db.Bitacora.Select(b => b.accion).Distinct().ToList()
             );
-
             ViewBag.Roles = new SelectList(
                 db.Rol.Select(r => r.nombre).ToList()
             );
 
+            // Paginación
+            int total = query.Count();
+            int totalPaginas = (int)Math.Ceiling(total / (double)PorPagina);
+            pagina = Math.Max(1, Math.Min(pagina, Math.Max(1, totalPaginas)));
+
+            ViewBag.PaginaActual  = pagina;
+            ViewBag.TotalPaginas  = totalPaginas;
+            ViewBag.TotalRegistros = total;
+
+            // Preservar filtros en links de paginación
+            ViewBag.FechaInicio = fechaInicio?.ToString("yyyy-MM-dd");
+            ViewBag.FechaFin    = fechaFin?.ToString("yyyy-MM-dd");
+            ViewBag.AccionFiltro = accion;
+            ViewBag.RolFiltro    = rol;
+
             return View(query
                 .OrderByDescending(b => b.fecha)
+                .Skip((pagina - 1) * PorPagina)
+                .Take(PorPagina)
                 .ToList());
         }
 

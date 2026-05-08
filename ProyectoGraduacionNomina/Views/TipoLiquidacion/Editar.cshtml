@@ -1,0 +1,54 @@
+@model ProyectoGraduacionNomina.TipoLiquidacion
+
+@{
+    ViewBag.Title = "Editar Tipo de Liquidación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="form-card">
+        <div class="form-header">
+            <h2><i class="bi bi-pencil-square me-2"></i>Editar Tipo de Liquidación</h2>
+        </div>
+
+        @using (Html.BeginForm("Editar", "TipoLiquidacion", new { id = Model.idTipoLiquidacion }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Código</label>
+                        <input type="text" class="form-control modern-input" value="@Model.codigo" disabled />
+                    </div>
+                    <div class="col-md-9">
+                        <label class="form-label fw-semibold">Nombre <span class="text-danger">*</span></label>
+                        <input type="text" name="nombre" class="form-control modern-input"
+                               value="@Model.nombre" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Descripción</label>
+                        <textarea name="descripcion" class="form-control modern-input" rows="2">@Model.descripcion</textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" name="aplicaCesantia" value="true"
+                                   id="chkCesantia" @(Model.aplica_cesantia ? "checked" : "") />
+                            <label class="form-check-label" for="chkCesantia">Aplica cesantía</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" name="aplicaPreaviso" value="true"
+                                   id="chkPreaviso" @(Model.aplica_preaviso ? "checked" : "") />
+                            <label class="form-check-label" for="chkPreaviso">Aplica preaviso</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-footer">
+                <a href="@Url.Action("Index","TipoLiquidacion")" class="cancel-btn btn">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+        }
+    </div>
+</div>
