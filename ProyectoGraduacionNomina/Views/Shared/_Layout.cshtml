@@ -35,7 +35,10 @@
                 <div class="user-menu d-flex align-items-center gap-3">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @Html.Action("Badge", "Notificacion")
+                        <a href="@Url.Action("Index","Vacaciones")" class="text-decoration-none text-dark position-relative"
+                           title="Solicitudes pendientes">
+                            @Html.Action("Badge", "Notificacion")
+                        </a>
                     }
                     else
                     {
