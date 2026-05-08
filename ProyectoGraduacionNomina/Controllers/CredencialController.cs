@@ -188,6 +188,8 @@ namespace ProyectoGraduacionNomina.Controllers
         // ===============================
         // RESET CONTRASEÑA (ADMIN)
         // ===============================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(int id)
         {
             var credencial = await db.Credencial.FindAsync(id);
