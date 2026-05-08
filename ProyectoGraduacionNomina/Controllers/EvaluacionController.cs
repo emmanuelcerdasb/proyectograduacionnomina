@@ -1,3 +1,4 @@
+using ProyectoGraduacionNomina.Helpers;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -106,6 +107,12 @@ namespace ProyectoGraduacionNomina.Controllers
                     fecha_evaluacion     = fechaEval
                 });
                 _db.SaveChanges();
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "CREAR EVALUACION",
+                        $"Evaluacion registrada: empleadoId={empleadoId} | Periodo {anio}-S{semestre} | Nota: {notaFinal:N2} ({calificacion})",
+                        this.HttpContext);
 
                 TempData["Success"] = $"Evaluacion registrada con nota final {notaFinal:N2} ({calificacion}).";
                 return RedirectToAction("Index");

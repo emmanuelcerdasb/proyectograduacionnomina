@@ -1,3 +1,4 @@
+using ProyectoGraduacionNomina.Helpers;
 using ProyectoGraduacionNomina.Servicios;
 using System;
 using System.Data.Entity;
@@ -95,6 +96,13 @@ namespace ProyectoGraduacionNomina.Controllers
                 var resultado = _service.CalcularLiquidacion(
                     empleadoId, tipoLiquidacionId, fecha, observaciones ?? "");
                 _service.GuardarLiquidacion(resultado);
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "GUARDAR LIQUIDACION",
+                        $"Liquidacion guardada: {resultado.NombreEmpleado} | Tipo: {resultado.NombreTipoLiquidacion} | Neto: {resultado.NetoPagar:N2}",
+                        this.HttpContext);
+
                 TempData["Success"] = $"Liquidacion de {resultado.NombreEmpleado} guardada correctamente.";
             }
             catch (Exception ex)

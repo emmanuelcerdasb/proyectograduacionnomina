@@ -211,6 +211,64 @@ namespace ProyectoGraduacionNomina.Controllers
             return RedirectToAction("Index");
         }
 
+        // ===============================
+        // CAMBIAR CONTRASEÑA (usuario actual)
+        // ===============================
+        [AllowAnonymous]
+        public ActionResult CambiarContrasena()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CambiarContrasena(string contrasenaActual, string nuevaContrasena)
+        {
+            if (string.IsNullOrWhiteSpace(contrasenaActual) || string.IsNullOrWhiteSpace(nuevaContrasena))
+            {
+                ViewBag.Error = "Debe completar todos los campos.";
+                return View();
+            }
+
+            if (nuevaContrasena.Length < 8)
+            {
+                ViewBag.Error = "La nueva contraseña debe tener al menos 8 caracteres.";
+                return View();
+            }
+
+            if (Session["CredencialId"] == null)
+                return RedirectToAction("Login", "Account");
+
+            int credId = (int)Session["CredencialId"];
+            var cred = await db.Credencial.FindAsync(credId);
+            if (cred == null)
+                return HttpNotFound();
+
+            if (!PasswordHelper.VerifyPassword(contrasenaActual, cred.contrasena))
+            {
+                ViewBag.Error = "La contraseña actual no es correcta.";
+                return View();
+            }
+
+            cred.contrasena          = PasswordHelper.HashPassword(nuevaContrasena);
+            cred.requiere_cambio     = false;
+            cred.fecha_ultimo_cambio = DateTime.Now;
+
+            await db.SaveChangesAsync();
+
+            BitacoraHelper.Registrar(
+                db,
+                credId,
+                "CAMBIO CONTRASEÑA",
+                $"El usuario cambió su contraseña.",
+                this.HttpContext
+            );
+
+            TempData["Success"] = "Contraseña actualizada correctamente.";
+            return RedirectToAction("Index", "Home");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ProyectoGraduacionNomina.Helpers;
+using ProyectoGraduacionNomina.Servicios;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using ProyectoGraduacionNomina.Servicios;
 
 namespace ProyectoGraduacionNomina.Controllers
 {
@@ -120,6 +121,12 @@ namespace ProyectoGraduacionNomina.Controllers
                 var service   = new NominaService(_db);
                 var resultado = service.CalcularNominaEmpleado(empleadoId, fechaInicio, fechaFin);
                 service.GuardarNomina(resultado);
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "GUARDAR NOMINA",
+                        $"Nomina guardada: {resultado.NombreEmpleado} | Periodo {mes}/{anno} | Neto: {resultado.SalarioNeto:N2}",
+                        this.HttpContext);
 
                 TempData["Success"] = $"Nómina de {resultado.NombreEmpleado} ({mes}/{anno}) guardada correctamente.";
             }

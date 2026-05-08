@@ -1,3 +1,4 @@
+using ProyectoGraduacionNomina.Helpers;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -133,6 +134,12 @@ namespace ProyectoGraduacionNomina.Controllers
 
                 _db.SaveChanges();
 
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "SOLICITAR VACACIONES",
+                        $"Solicitud de vacaciones: empleadoId={empleadoId} | {inicio:dd/MM/yyyy}-{fin:dd/MM/yyyy} | {diasHabiles} dias habiles",
+                        this.HttpContext);
+
                 TempData["Success"] = $"Solicitud de vacaciones registrada ({diasHabiles} dias habiles).";
                 return RedirectToAction("Index");
             }
@@ -182,6 +189,13 @@ namespace ProyectoGraduacionNomina.Controllers
                 });
 
                 _db.SaveChanges();
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "APROBAR VACACIONES",
+                        $"Vacaciones idVacaciones={id} aprobadas.",
+                        this.HttpContext);
+
                 TempData["Success"] = "Solicitud aprobada correctamente.";
             }
             catch (Exception ex)
@@ -231,6 +245,13 @@ namespace ProyectoGraduacionNomina.Controllers
                 });
 
                 _db.SaveChanges();
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "RECHAZAR VACACIONES",
+                        $"Vacaciones idVacaciones={id} rechazadas. Motivo: {comentario}",
+                        this.HttpContext);
+
                 TempData["Success"] = "Solicitud rechazada.";
             }
             catch (Exception ex)

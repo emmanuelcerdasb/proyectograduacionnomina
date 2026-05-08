@@ -1,3 +1,4 @@
+using ProyectoGraduacionNomina.Helpers;
 using ProyectoGraduacionNomina.Servicios;
 using System;
 using System.Data.Entity;
@@ -82,6 +83,13 @@ namespace ProyectoGraduacionNomina.Controllers
             {
                 var resultado = _service.CalcularAguinaldo(empleadoId, anio);
                 _service.GuardarAguinaldo(resultado);
+
+                if (Session["CredencialId"] != null)
+                    BitacoraHelper.Registrar(_db, (int)Session["CredencialId"],
+                        "GUARDAR AGUINALDO",
+                        $"Aguinaldo guardado: {resultado.NombreEmpleado} | Año {anio} | Monto: {resultado.MontoAguinaldo:N2}",
+                        this.HttpContext);
+
                 TempData["Success"] = $"Aguinaldo de {resultado.NombreEmpleado} ({anio}) guardado correctamente.";
             }
             catch (Exception ex)

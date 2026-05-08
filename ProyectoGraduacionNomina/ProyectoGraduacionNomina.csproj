@@ -462,6 +462,7 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Bitacora\Index.cshtml" />
     <Content Include="Views\Seguridad\Index.cshtml" />
+    <Content Include="Views\Seguridad\SesionesActivas.cshtml" />
     <Content Include="Views\Asistencia\ReporteEmpleado.cshtml" />
     <Content Include="Views\Asistencia\ResumenMensual.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
