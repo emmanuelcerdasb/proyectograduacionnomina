@@ -16,6 +16,10 @@
   <system.web>
     <compilation debug="true" targetFramework="4.7.2" />
     <httpRuntime targetFramework="4.7.2" />
+    <globalization culture="es-CR" uiCulture="es-CR"
+                   requestEncoding="utf-8"
+                   responseEncoding="utf-8"
+                   fileEncoding="utf-8" />
     <!-- ========================================= -->
     <!--        AUTENTICACIÓN (Forms Auth)         -->
     <!-- ========================================= -->
