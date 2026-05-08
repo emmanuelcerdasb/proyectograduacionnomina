@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 
+[Authorize(Roles = "Administrador,RRHH,Jefe,Jefa")]
 public class AsistenciaController : Controller
 {
     private readonly BD_NominaEntities _db = new BD_NominaEntities();

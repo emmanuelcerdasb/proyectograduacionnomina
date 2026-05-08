@@ -69,6 +69,12 @@ namespace ProyectoGraduacionNomina.Controllers
                 return View();
             }
 
+            if (fecha > DateTime.Today)
+            {
+                TempData["Error"] = "La fecha de liquidacion no puede ser una fecha futura.";
+                return View();
+            }
+
             try
             {
                 var resultado = _service.CalcularLiquidacion(
@@ -92,7 +98,18 @@ namespace ProyectoGraduacionNomina.Controllers
         {
             try
             {
-                DateTime fecha = DateTime.Parse(fechaLiquidacion);
+                if (!DateTime.TryParse(fechaLiquidacion, out DateTime fecha))
+                {
+                    TempData["Error"] = "Fecha de liquidacion invalida.";
+                    return RedirectToAction("Calcular");
+                }
+
+                if (fecha > DateTime.Today)
+                {
+                    TempData["Error"] = "La fecha de liquidacion no puede ser una fecha futura.";
+                    return RedirectToAction("Calcular");
+                }
+
                 var resultado = _service.CalcularLiquidacion(
                     empleadoId, tipoLiquidacionId, fecha, observaciones ?? "");
                 _service.GuardarLiquidacion(resultado);

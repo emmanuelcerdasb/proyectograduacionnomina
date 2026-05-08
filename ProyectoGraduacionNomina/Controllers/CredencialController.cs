@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -193,7 +194,8 @@ namespace ProyectoGraduacionNomina.Controllers
             if (credencial == null)
                 return HttpNotFound();
 
-            credencial.contrasena = PasswordHelper.HashPassword("Temporal123!");
+            string tempPass = ConfigurationManager.AppSettings["TempPassword"] ?? "Temporal123!";
+            credencial.contrasena = PasswordHelper.HashPassword(tempPass);
             credencial.requiere_cambio = true;
             credencial.fecha_ultimo_cambio = null;
 
